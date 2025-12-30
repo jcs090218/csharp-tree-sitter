@@ -1,6 +1,6 @@
 #
 .vs/
-.vs/
+.vscode/
 
 **/.chunks*
 **/.cache
