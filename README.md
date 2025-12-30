@@ -12,7 +12,7 @@ This repo includes the needed tree-sitter repos as submodules.
 Remember to use the `--recursive` option with git clone.
 
 ```console
-git clone https://github.com/tree-sitter/csharp-tree-sitter.git --recursive
+git clone https://github.com/jcs090218/csharp-tree-sitter.git --recursive
 ```
 
 ## Building
@@ -60,6 +60,7 @@ TODO: continue here
 ## Contributing
 
 TODO: Explain how other users and developers can contribute to make your code better.
+
 
 <!-- Links -->
 
