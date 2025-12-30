@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This module provides C# bindings to the [tree-sitter][] parsing library,
+This module provides C# bindings to the [Tree-sitter][] parsing library,
 which can enable c# developers be able to invoke the tree-sitter libraries
 through P/Invoke from their C# code.
 
