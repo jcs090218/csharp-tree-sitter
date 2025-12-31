@@ -44,14 +44,20 @@ jobs:
       matrix:
         include:
           - os: windows-2022
+            bundle_os: windows
             target: x86_64-windows-msvc
-            so-ext: dll
+            prefix: ""
+            ext: dll
           - os: ubuntu-24.04
+            bundle_os: ubuntu
             target: aarch64-unknown-linux-gnu
-            so-ext: so
+            prefix: lib
+            ext: so
           - os: macos-15
+            bundle_os: macos
             target: aarch64-apple-darwin
-            so-ext: dylib
+            prefix: lib
+            ext: dylib
 
     steps:
       - uses: actions/checkout@v6
@@ -65,4 +71,11 @@ jobs:
 
       - name: Build tree-sitter
         working-directory: modules/tree-sitter
-        run: zig build -Dbuild-shared=true -Dtarget=${{ matrix.target }}
+        run: zig build -Dbuild-shared=true -Dtarget=${{ matrix.target }} -p ../../output
+
+      - name: Upload binary
+        uses: actions/upload-artifact@v6
+        with:
+          name: ${{ matrix.target }}.${{ matrix.bundle_os }}
+          path: output/bin/${{ matrix.prefix }}tree-sitter.${{ matrix.ext }}
+          if-no-files-found: error
