@@ -200,18 +200,6 @@ namespace TreeSitter
 
         #region PInvoke
 
-        /* Bundles */
-
-        [DllImport("tree-sitter-cpp", CallingConvention = CallingConvention.Cdecl)]
-        private static extern IntPtr tree_sitter_cpp();
-
-        [DllImport("tree-sitter-c-sharp", CallingConvention = CallingConvention.Cdecl)]
-        private static extern IntPtr tree_sitter_c_sharp();
-
-        [DllImport("tree-sitter-rust", CallingConvention = CallingConvention.Cdecl)]
-        private static extern IntPtr tree_sitter_rust();
-
-
         /**
         * Create a new parser.
         */
