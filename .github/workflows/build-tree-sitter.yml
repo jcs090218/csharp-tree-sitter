@@ -88,6 +88,9 @@ jobs:
         working-directory: modules/tree-sitter
         run: zig build -Dbuild-shared=true -Dtarget=${{ matrix.target }} -p ../../output
 
+      - run: ls output/bin/
+        continue-on-error: true
+
       - name: Upload binary
         uses: actions/upload-artifact@v6
         with:
