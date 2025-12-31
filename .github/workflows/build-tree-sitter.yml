@@ -91,7 +91,7 @@ jobs:
         working-directory: modules/tree-sitter
         run: zig build -Dbuild-shared=true -Dtarget=${{ matrix.target }} -p ../../output
 
-      - run: ls ./output/
+      - run: ls -R ./output/
         continue-on-error: true
 
       - name: Upload binary
