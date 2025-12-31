@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices;
-
-namespace TreeSitter.Bundle
+﻿namespace TreeSitter.Bundle
 {
     public class TreeSitterCPP
     {

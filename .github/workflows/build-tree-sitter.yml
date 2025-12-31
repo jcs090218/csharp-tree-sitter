@@ -107,7 +107,7 @@ jobs:
       - name: Target dynamic link (Unix)
         if: runner.os != 'Windows'
         run: |
-          tar czf ${{ matrix.target }}.tar -C ./output/lib/libtree-sitter.${{ matrix.ext }} .
+          tar -cf ${{ matrix.target }}.tar ./output/lib/libtree-sitter.${{ matrix.ext }}
 
       - name: Target dynamic link (Windows)
         if: runner.os != 'Windows'
