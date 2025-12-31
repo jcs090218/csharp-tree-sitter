@@ -3,20 +3,16 @@ name: Build Tree-sitter
 on:
   push:
     branches:
-      - master
+      - main
     paths:
-      - lisp/**
-      - cmds/**
-      - src/**
-      - test/**
+      - TreeSitter/**
       - '**.yml'
       - '**.json'
-      - 'eask'
       # ignore
       - '!**/docs.yml'
   pull_request:
     branches:
-      - master
+      - main
     paths-ignore:
       - '**/docs.yml'
       - '**.md'
