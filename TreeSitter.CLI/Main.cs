@@ -51,7 +51,9 @@ namespace TreeSitter.CLI
 
         public static bool ParseTree(string path, string filetext, TSParser parser)
         {
-            TSLanguage lang = NativeGrammar.Load("tree-sitter-cpp", "tree_sitter_cpp");
+            var bundle = new TreeSitterBundle("D:\\_lang\\cs\\_tmp");
+
+            TSLanguage lang = bundle.Load("tree-sitter-cpp");
 
             parser.set_language(lang);
 

@@ -138,10 +138,14 @@ namespace TreeSitter
 
         public bool set_language(TSLanguage language) { return ts_parser_set_language(Ptr, language.Ptr); }
 
-        public TSLanguage language()
+        public TSLanguage? language()
         {
             var ptr = ts_parser_language(Ptr);
-            return ptr != IntPtr.Zero ? new TSLanguage(ptr) : null;
+
+            if (ptr != IntPtr.Zero)
+                return new TSLanguage(ptr);
+
+            return null;
         }
 
         public bool set_included_ranges(TSRange[] ranges)
@@ -154,11 +158,15 @@ namespace TreeSitter
             return ts_parser_included_ranges(Ptr, out length);
         }
 
-        public TSTree parse_string(TSTree oldTree, string input)
+        public TSTree? parse_string(TSTree oldTree, string input)
         {
             var ptr = ts_parser_parse_string_encoding(Ptr, oldTree != null ? oldTree.Ptr : IntPtr.Zero,
                                                         input, (uint)input.Length * 2, TSInputEncoding.TSInputEncodingUTF16);
-            return ptr != IntPtr.Zero ? new TSTree(ptr) : null;
+
+            if (ptr != IntPtr.Zero)
+                return new TSTree(ptr);
+
+            return null;
         }
 
         public void reset() { ts_parser_reset(Ptr); }
@@ -167,7 +175,12 @@ namespace TreeSitter
         public void set_logger(TSLogger logger)
         {
             var code = new _TSLoggerCode(logger);
-            var data = new _TSLoggerData { Log = logger != null ? new TSLogCallback(code.LogCallback) : null };
+            var data = new _TSLoggerData
+            {
+                Log = (logger != null)
+                ? new TSLogCallback(code.LogCallback)
+                : null
+            };
             ts_parser_set_logger(Ptr, data);
         }
 
@@ -175,7 +188,7 @@ namespace TreeSitter
         private struct _TSLoggerData
         {
             private IntPtr Payload;
-            internal TSLogCallback Log;
+            internal TSLogCallback? Log;
         }
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -364,17 +377,28 @@ namespace TreeSitter
             }
         }
 
-        public TSTree copy()
+        public TSTree? copy()
         {
             var ptr = ts_tree_copy(Ptr);
-            return ptr != IntPtr.Zero ? new TSTree(ptr) : null;
+
+            if (ptr != IntPtr.Zero)
+                return new TSTree(ptr);
+
+            return null;
         }
         public TSNode root_node() { return ts_tree_root_node(Ptr); }
-        public TSNode root_node_with_offset(uint offsetBytes, TSPoint offsetPoint) { return ts_tree_root_node_with_offset(Ptr, offsetBytes, offsetPoint); }
-        public TSLanguage language()
+        public TSNode root_node_with_offset(uint offsetBytes, TSPoint offsetPoint)
+        {
+            return ts_tree_root_node_with_offset(Ptr, offsetBytes, offsetPoint);
+        }
+        public TSLanguage? language()
         {
             var ptr = ts_tree_language(Ptr);
-            return ptr != IntPtr.Zero ? new TSLanguage(ptr) : null;
+
+            if (ptr != IntPtr.Zero)
+                return new TSLanguage(ptr);
+
+            return null;
         }
         public void edit(TSInputEdit edit) { ts_tree_edit(Ptr, ref edit); }
 
@@ -470,7 +494,7 @@ namespace TreeSitter
 
         public void clear() { id = IntPtr.Zero; tree = IntPtr.Zero; }
         public bool is_zero() { return (id == IntPtr.Zero && tree == IntPtr.Zero); }
-        public string type() { return Marshal.PtrToStringAnsi(ts_node_type(this)); }
+        public string? type() { return Marshal.PtrToStringAnsi(ts_node_type(this)); }
         public string type(TSLanguage lang) { return lang.symbol_name(symbol()); }
         public ushort symbol() { return ts_node_symbol(this); }
         public uint start_offset() { return ts_node_start_byte(this) / sizeof(ushort); }
@@ -904,9 +928,9 @@ namespace TreeSitter
         public bool is_pattern_rooted(uint patternIndex) { return ts_query_is_pattern_rooted(Ptr, patternIndex); }
         public bool is_pattern_non_local(uint patternIndex) { return ts_query_is_pattern_non_local(Ptr, patternIndex); }
         public bool is_pattern_guaranteed_at_offset(uint offset) { return ts_query_is_pattern_guaranteed_at_step(Ptr, offset / sizeof(ushort)); }
-        public string capture_name_for_id(uint id, out uint length) { return Marshal.PtrToStringAnsi(ts_query_capture_name_for_id(Ptr, id, out length)); }
+        public string? capture_name_for_id(uint id, out uint length) { return Marshal.PtrToStringAnsi(ts_query_capture_name_for_id(Ptr, id, out length)); }
         public TSQuantifier capture_quantifier_for_id(uint patternId, uint captureId) { return ts_query_capture_quantifier_for_id(Ptr, patternId, captureId); }
-        public string string_value_for_id(uint id, out uint length) { return Marshal.PtrToStringAnsi(ts_query_string_value_for_id(Ptr, id, out length)); }
+        public string? string_value_for_id(uint id, out uint length) { return Marshal.PtrToStringAnsi(ts_query_string_value_for_id(Ptr, id, out length)); }
         public void disable_capture(string captureName) { ts_query_disable_capture(Ptr, captureName, (uint)captureName.Length); }
         public void disable_pattern(uint patternIndex) { ts_query_disable_pattern(Ptr, patternIndex); }
 
@@ -961,6 +985,7 @@ namespace TreeSitter
     {
         private IntPtr Ptr { get; set; }
 
+        // @internal
         private TSQueryCursor(IntPtr ptr)
         {
             Ptr = ptr;
@@ -995,7 +1020,8 @@ namespace TreeSitter
                 if (match.capture_count > 0)
                 {
                     captures = new TSQueryCapture[match.capture_count];
-                    for (ushort i = 0; i < match.capture_count; i++)
+
+                    for (ushort i = 0; i < match.capture_count; ++i)
                     {
                         var intPtr = match.captures + Marshal.SizeOf(typeof(TSQueryCapture)) * i;
                         captures[i] = Marshal.PtrToStructure<TSQueryCapture>(intPtr);
@@ -1063,17 +1089,21 @@ namespace TreeSitter
 
             symbols = new string[symbol_count() + 1];
 
-            for (ushort i = 0; i < symbols.Length; i++)
+            for (ushort i = 0; i < symbols.Length; ++i)
             {
-                symbols[i] = Marshal.PtrToStringAnsi(ts_language_symbol_name(Ptr, i));
+                nint name = ts_language_field_name_for_id(Ptr, i);
+
+                symbols[i] = Marshal.PtrToStringAnsi(name);
             }
 
             fields = new string[field_count() + 1];
             fieldIds = new Dictionary<string, ushort>((int)field_count() + 1);
 
-            for (ushort i = 0; i < fields.Length; i++)
+            for (ushort i = 0; i < fields.Length; ++i)
             {
-                fields[i] = Marshal.PtrToStringAnsi(ts_language_field_name_for_id(Ptr, i));
+                nint name = ts_language_field_name_for_id(Ptr, i);
+
+                fields[i] = Marshal.PtrToStringAnsi(name);
 
                 if (fields[i] != null)
                 {
@@ -1105,10 +1135,14 @@ namespace TreeSitter
             }
         }
 
-        public TSQuery query_new(string source, out uint error_offset, out TSQueryError error_type)
+        public TSQuery? query_new(string source, out uint error_offset, out TSQueryError error_type)
         {
             var ptr = ts_query_new(Ptr, source, (uint)source.Length, out error_offset, out error_type);
-            return ptr != IntPtr.Zero ? new TSQuery(ptr) : null;
+
+            if (ptr != IntPtr.Zero)
+                return new TSQuery(ptr);
+
+            return null;
         }
 
         public string[] symbols;
