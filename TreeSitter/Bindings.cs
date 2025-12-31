@@ -1,10 +1,10 @@
 ﻿//////////////////////////////////////////////////////////////////////////////
 //
 //  Module Name:
-//      binding.cs
+//      Binding.cs
 //
 //  Abstract:
-//      Wrapper for Tree-Sitter Library.
+//      Wrapper for Tree-sitter Library.
 //
 using System.Runtime.InteropServices;
 
@@ -989,6 +989,7 @@ namespace TreeSitter
         public bool next_match(out TSQueryMatch match, out TSQueryCapture[] captures)
         {
             captures = null;
+
             if (ts_query_cursor_next_match(Ptr, out match))
             {
                 if (match.capture_count > 0)
@@ -1000,8 +1001,10 @@ namespace TreeSitter
                         captures[i] = Marshal.PtrToStructure<TSQueryCapture>(intPtr);
                     }
                 }
+
                 return true;
             }
+
             return false;
         }
         public void remove_match(uint id) { ts_query_cursor_remove_match(Ptr, id); }

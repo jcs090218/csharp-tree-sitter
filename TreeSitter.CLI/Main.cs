@@ -1,21 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.InteropServices;
+using TreeSitter.Bundle;
 
 namespace TreeSitter.CLI
 {
-    // A class to test the Tree-sitter methods
-    public class TestTreeSitterCPP
+    public class Program
     {
-        public static TSLanguage lang = new TSLanguage(tree_sitter_cpp());
-
-        [DllImport("tree-sitter-cpp", CallingConvention = CallingConvention.Cdecl)]
-        private static extern IntPtr tree_sitter_cpp();
-
         public static void PostOrderTraverse(string path, string filetext, TSCursor cursor)
         {
-            var rootCursor = cursor;
+            TSCursor rootCursor = cursor;
 
             for (; ; )
             {
@@ -29,16 +23,12 @@ namespace TreeSitter.CLI
                 var span = filetext.AsSpan(so, eo - so);
 
                 if (hasChildren)
-                {
                     continue;
-                }
 
                 Console.Error.WriteLine("The node type is {0}, symbol is {1}", type, span.ToString());
 
                 if (cursor.goto_next_sibling())
-                {
                     continue;
-                }
 
                 do
                 {
@@ -61,17 +51,19 @@ namespace TreeSitter.CLI
 
         public static bool ParseTree(string path, string filetext, TSParser parser)
         {
-            parser.set_language(TestTreeSitterCPP.lang);
+            TSLanguage lang = NativeGrammar.Load("tree-sitter-cpp", "tree_sitter_cpp");
+
+            parser.set_language(lang);
 
             using var tree = parser.parse_string(null, filetext);
+
             if (tree == null)
-            {
                 return false;
-            }
 
             using var cursor = new TSCursor(tree.root_node(), lang);
 
             PostOrderTraverse(path, filetext, cursor);
+
             return true;
         }
 

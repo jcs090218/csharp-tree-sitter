@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TreeSitter\TreeSitter.csproj" />
+    <ProjectReference Include="..\TreeSitter.Bundle\TreeSitter.Bundle.csproj" />
   </ItemGroup>
 
 </Project>
