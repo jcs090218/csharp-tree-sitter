@@ -104,6 +104,16 @@ jobs:
           path: ./output/bin/tree-sitter.${{ matrix.ext }}
           if-no-files-found: error
 
+      - name: Target dynamic link (Unix):
+        if: runner.os != 'Windows'
+        run: |
+          tar czf ${{ matrix.target }}.tar -C ./output/lib/libtree-sitter.${{ matrix.ext }} .
+
+      - name: Target dynamic link (Windows):
+        if: runner.os != 'Windows'
+        run: |
+          zip -r ${{ matrix.target }}.${{ matrix.bundle_os }}.zip ./output/bin/tree-sitter.${{ matrix.ext }} .
+
       - name: Upload for prerelease (Unix)
         if: github.ref == 'refs/heads/main' && runner.os != 'Windows'
         uses: softprops/action-gh-release@v2.5.0
@@ -112,7 +122,7 @@ jobs:
           token: ${{ secrets.PAT }}
           prerelease: true
           draft: false
-          files: ./output/lib/libtree-sitter.${{ matrix.ext }}
+          files: ./output/lib/libtree-sitter.tar
 
       - name: Upload for prerelease (Windows)
         if: github.ref == 'refs/heads/main' && runner.os == 'Windows'
@@ -122,5 +132,5 @@ jobs:
           token: ${{ secrets.PAT }}
           prerelease: true
           draft: false
-          files: ./output/bin/tree-sitter.${{ matrix.ext }}
+          files: ./output/bin/tree-sitter.zip
   
