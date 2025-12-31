@@ -91,14 +91,14 @@ jobs:
         working-directory: modules/tree-sitter
         run: zig build -Dbuild-shared=true -Dtarget=${{ matrix.target }} -p ../../output
 
-      - run: ls -a output/
+      - run: ls ./output/
         continue-on-error: true
 
       - name: Upload binary
         uses: actions/upload-artifact@v6
         with:
           name: ${{ matrix.target }}.${{ matrix.bundle_os }}
-          path: output/bin/${{ matrix.prefix }}tree-sitter.${{ matrix.ext }}
+          path: ./output/bin/${{ matrix.prefix }}tree-sitter.${{ matrix.ext }}
           if-no-files-found: error
 
       - name: Upload for prerelease
