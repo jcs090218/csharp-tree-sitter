@@ -112,7 +112,7 @@ jobs:
       - name: Target dynamic link (Windows)
         if: runner.os == 'Windows'
         run: |
-          zip -r ${{ matrix.target }}.${{ matrix.bundle_os }}.zip ./output/bin/tree-sitter.${{ matrix.ext }} .
+          Compress-Archive -Path ./output/bin/tree-sitter.${{ matrix.ext }} -DestinationPath ${{ matrix.target }}.${{ matrix.bundle_os }}.zip
 
       - name: Upload for prerelease (Unix)
         if: github.ref == 'refs/heads/main' && runner.os != 'Windows'
