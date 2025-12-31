@@ -91,7 +91,7 @@ jobs:
         working-directory: modules/tree-sitter
         run: zig build -Dbuild-shared=true -Dtarget=${{ matrix.target }} -p ../../output
 
-      - run: ls output/bin/
+      - run: ls -a output/
         continue-on-error: true
 
       - name: Upload binary
@@ -100,3 +100,14 @@ jobs:
           name: ${{ matrix.target }}.${{ matrix.bundle_os }}
           path: output/bin/${{ matrix.prefix }}tree-sitter.${{ matrix.ext }}
           if-no-files-found: error
+
+      - name: Upload for prerelease
+        if: github.ref == 'refs/heads/main'
+        uses: softprops/action-gh-release@v2.5.0
+        with:
+          tag_name: ${{ env.VERSION }}
+          token: ${{ secrets.PAT }}
+          prerelease: true
+          draft: false
+        files: eask_${{ env.VERSION }}_${{ matrix.target }}.${{ env._EXT }}
+  
