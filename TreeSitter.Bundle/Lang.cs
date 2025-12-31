@@ -4,17 +4,17 @@ namespace TreeSitter.Bundle
 {
     public class TreeSitterCPP
     {
-        [DllImport("tree-sitter-cpp")]
-        private static extern IntPtr tree_sitter_cpp();
+        public const string Name = $"tree-sitter-{ShortName}";
+        public const string ShortName = "cpp";
 
-        public static TSLanguage Create() => new TSLanguage(tree_sitter_cpp());
+        public static TSLanguage Create() => NativeGrammar.Load(Name);
     }
 
     public class TreeSitterPython
     {
-        [DllImport("tree-sitter-python")]
-        private static extern IntPtr tree_sitter_python();
+        public const string Name = $"tree-sitter-{ShortName}";
+        public const string ShortName = "python";
 
-        public static TSLanguage Create() => new TSLanguage(tree_sitter_python());
+        public static TSLanguage Create() => NativeGrammar.Load(Name);
     }
 }

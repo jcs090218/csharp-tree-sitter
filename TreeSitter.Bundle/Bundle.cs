@@ -1,11 +1,13 @@
-﻿using System.Runtime.InteropServices;
-
-namespace TreeSitter.Bundle
+﻿namespace TreeSitter.Bundle
 {
     public class TreeSitterBundle
     {
-        private string _binPath = string.Empty;
+        private string? _binPath = string.Empty;
 
+        public TreeSitterBundle()
+        {
+            _binPath = Path.GetDirectoryName(Environment.ProcessPath);
+        }
         public TreeSitterBundle(string binPath)
         {
             _binPath = binPath;
@@ -13,25 +15,33 @@ namespace TreeSitter.Bundle
 
         public TSLanguage Load(string name)
         {
+            if (_binPath == null)
+            {
+                throw new InvalidOperationException(
+                    $"Invalid binary path {_binPath}");
+            }
+
             string path = Path.Combine(_binPath, name);
-            string symbol = Name2Symbol(name);
 
-            return NativeGrammar.Load(path, symbol);
-        }
-
-        public static void DownloadLatest()
-        {
-
+            return NativeGrammar.Load(path);
         }
 
         /// <summary>
-        /// Convert the name to function symbol
-        /// 
-        /// Ex: `tree-sitter-cpp` => `tree_sitter_cpp`.
+        /// Download to use the pre-built binaries.
         /// </summary>
-        private string Name2Symbol(string name)
+        public void DownloadPrebuilt()
         {
-            return name.Replace("-", "_");
+            if (_binPath == null)
+            {
+                throw new InvalidOperationException(
+                    $"Invalid binary path {_binPath}");
+            }
+
+            DownloadPrebuilt(_binPath);
+        }
+        private static void DownloadPrebuilt(string path)
+        {
+
         }
     }
 }

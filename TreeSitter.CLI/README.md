@@ -9,3 +9,9 @@ You can manually run with:
 ```console
 csharp-tree-sitter.exe -files [your test cpp files]
 ```
+
+## TODO
+
+- [ ] Add an command line parser ([commandline](https://github.com/commandlineparser/commandline))
+- [ ] Support more languages for testing.
+- [ ] Add option to pass in languages to load.

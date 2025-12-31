@@ -10,6 +10,10 @@ namespace TreeSitter.Bundle
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate IntPtr LanguageFn();
 
+        /// <summary>
+        /// Load the grammar to raw pointer.
+        /// </summary>
+        /// <param name="path"> The path to dynamic binary file. </param>
         public static IntPtr LoadRaw(string path, string symbol)
         {
             IntPtr lib = NativeLibrary.Load(path);
@@ -21,9 +25,31 @@ namespace TreeSitter.Bundle
             return fn(); // const TSLanguage*
         }
 
+        /// <summary>
+        /// Load the grammar to language.
+        /// </summary>
+        /// <param name="path"> The path to dynamic binary file. </param>
+        public static TSLanguage Load(string path)
+        {
+            string symbol = Path2Symbol(path);
+            return Load(path, symbol);
+        }
         public static TSLanguage Load(string path, string symbol)
         {
             return new TSLanguage(LoadRaw(path, symbol));
+        }
+
+        /// <summary>
+        /// Convert the name to function symbol
+        /// 
+        /// Ex: `tree-sitter-cpp` => `tree_sitter_cpp`.
+        /// </summary>
+        private static string Path2Symbol(string path)
+        {
+            string dir = Path.GetDirectoryName(path)!;
+            string file = Path.GetFileName(path);
+
+            return file.Replace('-', '_');
         }
     }
 }

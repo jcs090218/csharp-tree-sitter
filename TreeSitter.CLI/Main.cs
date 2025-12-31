@@ -25,7 +25,7 @@ namespace TreeSitter.CLI
                 if (hasChildren)
                     continue;
 
-                Console.Error.WriteLine("The node type is {0}, symbol is {1}", type, span.ToString());
+                Console.Out.WriteLine("The node type is {0}, symbol is {1}", type, span.ToString());
 
                 if (cursor.goto_next_sibling())
                     continue;
@@ -38,7 +38,7 @@ namespace TreeSitter.CLI
                     var type_p = cursor.current_symbol();
                     var span_p = filetext.AsSpan(so_p, eo_p - so_p);
 
-                    Console.Error.WriteLine("The node type is {0}, symbol is {1}", type_p, span_p.ToString());
+                    Console.Out.WriteLine("The node type is {0}, symbol is {1}", type_p, span_p.ToString());
 
                     if (rootCursor == cursor)
                     {
@@ -92,10 +92,9 @@ namespace TreeSitter.CLI
         public static void PrintErrorAt(string path, string error, params object[] args)
         {
             Console.ForegroundColor = ConsoleColor.Red;
+
             if (Console.CursorLeft != 0)
-            {
                 Console.Error.WriteLine();
-            }
 
             Console.Error.WriteLine("{0}(): error {1}", path, string.Format(error, args));
             Console.ForegroundColor = Console.ForegroundColor;
