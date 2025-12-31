@@ -2,7 +2,7 @@
 [![Release](https://img.shields.io/github/tag/jcs090218/csharp-tree-sitter.svg?label=release&logo=github)](https://github.com/jcs090218/csharp-tree-sitter/releases/latest)
 [![Nuget DT](https://img.shields.io/nuget/dt/csharp-tree-sitter?logo=nuget&logoColor=49A2E6)](https://www.nuget.org/packages/csharp-tree-sitter/)
 
-# csharp-tree-sitter
+# C# Tree-sitter
 
 ## Introduction
 
