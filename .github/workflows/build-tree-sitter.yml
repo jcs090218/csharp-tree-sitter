@@ -104,12 +104,12 @@ jobs:
           path: ./output/bin/tree-sitter.${{ matrix.ext }}
           if-no-files-found: error
 
-      - name: Target dynamic link (Unix):
+      - name: Target dynamic link (Unix)
         if: runner.os != 'Windows'
         run: |
           tar czf ${{ matrix.target }}.tar -C ./output/lib/libtree-sitter.${{ matrix.ext }} .
 
-      - name: Target dynamic link (Windows):
+      - name: Target dynamic link (Windows)
         if: runner.os != 'Windows'
         run: |
           zip -r ${{ matrix.target }}.${{ matrix.bundle_os }}.zip ./output/bin/tree-sitter.${{ matrix.ext }} .
