@@ -107,12 +107,12 @@ jobs:
       - name: Target dynamic link (Unix)
         if: runner.os != 'Windows'
         run: |
-          tar -cf ${{ matrix.target }}.tar ./output/lib/libtree-sitter.${{ matrix.ext }}
+          tar -cf tree-sitter.${{ matrix.target }}.tar ./output/lib/libtree-sitter.${{ matrix.ext }}
 
       - name: Target dynamic link (Windows)
         if: runner.os == 'Windows'
         run: |
-          Compress-Archive -Path ./output/bin/tree-sitter.${{ matrix.ext }} -DestinationPath ${{ matrix.target }}.zip
+          Compress-Archive -Path ./output/bin/tree-sitter.${{ matrix.ext }} -DestinationPath tree-sitter.${{ matrix.target }}.zip
 
       - name: Upload for prerelease (Unix)
         if: github.ref == 'refs/heads/main' && runner.os != 'Windows'
@@ -122,7 +122,7 @@ jobs:
           token: ${{ secrets.PAT }}
           prerelease: true
           draft: false
-          files: ./${{ matrix.target }}.tar
+          files: ./tree-sitter.${{ matrix.target }}.tar
 
       - name: Upload for prerelease (Windows)
         if: github.ref == 'refs/heads/main' && runner.os == 'Windows'
@@ -132,5 +132,5 @@ jobs:
           token: ${{ secrets.PAT }}
           prerelease: true
           draft: false
-          files: ./${{ matrix.target }}.zip
+          files: ./tree-sitter.${{ matrix.target }}.zip
   
