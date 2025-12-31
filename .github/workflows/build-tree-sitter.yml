@@ -109,5 +109,5 @@ jobs:
           token: ${{ secrets.PAT }}
           prerelease: true
           draft: false
-        files: eask_${{ env.VERSION }}_${{ matrix.target }}.${{ env._EXT }}
+          files: eask_${{ env.VERSION }}_${{ matrix.target }}.${{ env._EXT }}
   
