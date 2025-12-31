@@ -104,13 +104,23 @@ jobs:
           path: ./output/bin/tree-sitter.${{ matrix.ext }}
           if-no-files-found: error
 
-      - name: Upload for prerelease
-        if: github.ref == 'refs/heads/main'
+      - name: Upload for prerelease (Unix)
+        if: github.ref == 'refs/heads/main' && runner.os != 'Windows'
         uses: softprops/action-gh-release@v2.5.0
         with:
           tag_name: ${{ env.VERSION }}
           token: ${{ secrets.PAT }}
           prerelease: true
           draft: false
-          files: eask_${{ env.VERSION }}_${{ matrix.target }}.${{ env._EXT }}
+          files: ./output/lib/libtree-sitter.${{ matrix.ext }}
+
+      - name: Upload for prerelease (Windows)
+        if: github.ref == 'refs/heads/main' && runner.os == 'Windows'
+        uses: softprops/action-gh-release@v2.5.0
+        with:
+          tag_name: ${{ env.VERSION }}
+          token: ${{ secrets.PAT }}
+          prerelease: true
+          draft: false
+          files: ./output/bin/tree-sitter.${{ matrix.ext }}
   
