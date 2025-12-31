@@ -4,6 +4,8 @@ namespace TreeSitter
 {
     public static class TreeSitter
     {
+        private const string URL = "https://github.com/jcs090218/csharp-tree-sitter/releases/download/";
+
         /// <summary>
         /// Prepare the prebuilt Tree-sitter binary.
         /// </summary>
@@ -28,35 +30,7 @@ namespace TreeSitter
         /// </summary>
         private static string PrebuiltUrl(string version)
         {
-            string url = "https://github.com/jcs090218/csharp-tree-sitter/releases/download/";
-
-            Architecture arch = RuntimeInformation.OSArchitecture;
-
-            string host = HostName();
-
-            string ext = (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                ? "zip"
-                : "tar";
-
-            switch (arch)
-            {
-                case Architecture.X86:
-                case Architecture.X64:
-                    url = $"{url}{version}/tree-sitter.x86_64-{host}.{ext}";
-                    break;
-
-                case Architecture.Arm:
-                case Architecture.Arm64:
-                    url = $"{url}{version}/tree-sitter.aarch64-{host}.{ext}";
-                    break;
-
-                default:
-                    throw new NotSupportedException($"Architecture '{arch}' is not supported.");
-            }
-
-            url = $"{url}{version}/{PrebuiltName()}";
-
-            return url;
+            return $"{URL}{version}/{PrebuiltName()}";
         }
 
         /// <summary>
