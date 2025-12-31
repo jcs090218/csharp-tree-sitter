@@ -55,22 +55,22 @@ jobs:
             ext: dll
           - os: ubuntu-24.04
             bundle_os: ubuntu
-            target: x86_64-unknown-linux-gnu
+            target: x86_64-linux-gnu
             prefix: lib
             ext: so
           - os: ubuntu-24.04
             bundle_os: ubuntu
-            target: aarch64-unknown-linux-gnu
+            target: aarch64-linux-gnu
             prefix: lib
             ext: so
           - os: macos-15
             bundle_os: macos
-            target: x86_64-apple-darwin
+            target: x86_64-macos-none
             prefix: lib
             ext: dylib
           - os: macos-15
             bundle_os: macos
-            target: aarch64-apple-darwin
+            target: aarch64-macos-none
             prefix: lib
             ext: dylib
 
