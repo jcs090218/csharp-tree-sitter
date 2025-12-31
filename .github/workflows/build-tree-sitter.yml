@@ -45,18 +45,24 @@ jobs:
         include:
           - os: windows-2022
             target: x86_64-windows-msvc
+            so-ext: dll
           - os: ubuntu-24.04
             target: aarch64-unknown-linux-gnu
+            so-ext: so
           - os: macos-15
             target: aarch64-apple-darwin
+            so-ext: dylib
 
     steps:
       - uses: actions/checkout@v6
+        with:
+          submodules: recursive
 
       # Cross build
       - uses: mlugg/setup-zig@v2
         with:
           version: 0.15.0
 
-      - name: Check query formatting
+      - name: Build tree-sitter
+        working-directory: modules/tree-sitter
         run: zig build -Dbuild-shared=true -Dtarget=${{ matrix.target }}

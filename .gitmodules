@@ -1,0 +1,4 @@
+[submodule "modules/tree-sitter"]
+	path = modules/tree-sitter
+	url = https://github.com/tree-sitter/tree-sitter
+	branch = master
