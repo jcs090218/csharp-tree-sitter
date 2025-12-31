@@ -49,32 +49,26 @@ jobs:
           - os: windows-2022
             bundle_os: windows
             target: x86_64-windows-msvc
-            prefix: ""
             ext: dll
           - os: windows-2022
             bundle_os: windows
             target: aarch64-windows-msvc
-            prefix: ""
             ext: dll
           - os: ubuntu-24.04
             bundle_os: ubuntu
             target: x86_64-linux-gnu
-            prefix: lib
             ext: so
           - os: ubuntu-24.04
             bundle_os: ubuntu
             target: aarch64-linux-gnu
-            prefix: lib
             ext: so
           - os: macos-15
             bundle_os: macos
             target: x86_64-macos-none
-            prefix: lib
             ext: dylib
           - os: macos-15
             bundle_os: macos
             target: aarch64-macos-none
-            prefix: lib
             ext: dylib
 
     steps:
@@ -94,11 +88,20 @@ jobs:
       - run: ls -R ./output/
         continue-on-error: true
 
-      - name: Upload binary
+      - name: Upload binary (Unix)
         uses: actions/upload-artifact@v6
+        if: runner.os != 'Windows'
         with:
           name: ${{ matrix.target }}.${{ matrix.bundle_os }}
-          path: ./output/bin/${{ matrix.prefix }}tree-sitter.${{ matrix.ext }}
+          path: ./output/lib/libtree-sitter.${{ matrix.ext }}
+          if-no-files-found: error
+
+      - name: Upload binary (Windows)
+        uses: actions/upload-artifact@v6
+        if: runner.os == 'Windows'
+        with:
+          name: ${{ matrix.target }}.${{ matrix.bundle_os }}
+          path: ./output/bin/tree-sitter.${{ matrix.ext }}
           if-no-files-found: error
 
       - name: Upload for prerelease
