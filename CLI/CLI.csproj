@@ -3,6 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>csharp-tree-sitter</AssemblyName>
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>disable</Nullable>
     <PlatformTarget>x64</PlatformTarget>
@@ -10,8 +11,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-   <Compile Include="tests\test.cs" />
-   <Compile Include="src\binding.cs" />
+   <Compile Include="Main.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TreeSitter\TreeSitter.csproj" />
   </ItemGroup>
 
 </Project>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace TreeSitter.Test
+namespace TreeSitter.CLI
 {
     // A class to test the Tree-sitter methods
     public class TestTreeSitterCPP
