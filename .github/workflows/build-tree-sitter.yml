@@ -1,0 +1,66 @@
+name: Build Tree-sitter
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - lisp/**
+      - cmds/**
+      - src/**
+      - test/**
+      - '**.yml'
+      - '**.json'
+      - 'eask'
+      # ignore
+      - '!**/docs.yml'
+  pull_request:
+    branches:
+      - master
+    paths-ignore:
+      - '**/docs.yml'
+      - '**.md'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: jcs-actions/delete-tag-and-release@master
+      if: github.ref == 'refs/heads/master'
+      continue-on-error: true
+      with:
+        delete_release: true
+        tag_name: ${{ env.VERSION }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.PAT }}
+
+  ci:
+    needs: [prepare]
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-2022
+            target: x86_64-windows-msvc
+          - os: ubuntu-24.04
+            target: aarch64-unknown-linux-gnu
+          - os: macos-15
+            target: aarch64-apple-darwin
+
+    steps:
+      - uses: actions/checkout@v6
+
+      # Cross build
+      - uses: mlugg/setup-zig@v2
+        with:
+          version: 0.15.0
+
+      - name: Check query formatting
+        run: zig build -Dbuild-shared=true -Dtarget=${{ matrix.target }}
