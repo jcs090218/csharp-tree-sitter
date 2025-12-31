@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using GitHub.TreeSitter;
 using System.Runtime.InteropServices;
 
-namespace TreeSitterTest
+namespace TreeSitter.Test
 {
-    // A class to test the TreeSitter methods
+    // A class to test the Tree-sitter methods
     public class TestTreeSitterCPP
     {
         public static TSLanguage lang = new TSLanguage(tree_sitter_cpp());
@@ -14,7 +13,7 @@ namespace TreeSitterTest
         [DllImport("tree-sitter-cpp.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern IntPtr tree_sitter_cpp();
 
-        public static void PostOrderTraverse(string path, String filetext, TSCursor cursor)
+        public static void PostOrderTraverse(string path, string filetext, TSCursor cursor)
         {
             var rootCursor = cursor;
 
@@ -76,7 +75,7 @@ namespace TreeSitterTest
             return ParseTree(filename, filetext, parser);
         }
 
-        public static bool PrintTree(List<String> paths)
+        public static bool PrintTree(List<string> paths)
         {
             bool good = true;
             foreach (var path in paths) {
@@ -88,26 +87,26 @@ namespace TreeSitterTest
             return good;
         }
         
-        public static void PrintErrorAt(string path, string error, params Object[] args)
+        public static void PrintErrorAt(string path, string error, params object[] args)
         {
             Console.ForegroundColor = ConsoleColor.Red;
             if (Console.CursorLeft != 0) { 
                 Console.Error.WriteLine(); 
             }
             
-            Console.Error.WriteLine("{0}(): error {1}", path, String.Format(error, args));
+            Console.Error.WriteLine("{0}(): error {1}", path, string.Format(error, args));
             Console.ForegroundColor = Console.ForegroundColor;
         }
 
-        public static List<String> ArgsToPaths(ref int pos, string[] args)
+        public static List<string> ArgsToPaths(ref int pos, string[] args)
         {
             if (++pos >= args.Length) {
                 PrintErrorAt("", "XR0100: No input files to process.");
                 return null;
             }
 
-            var files = new List<String>();
-            var used = new HashSet<String>();
+            var files = new List<string>();
+            var used = new HashSet<string>();
             var options = new EnumerationOptions();
             options.RecurseSubdirectories = false;
             options.ReturnSpecialDirectories = false;
@@ -130,10 +129,10 @@ namespace TreeSitterTest
 
                 string directory = System.IO.Path.GetDirectoryName(arg);
                 string pattern = System.IO.Path.GetFileName(arg);
-                if (directory == String.Empty) {
+                if (directory == string.Empty) {
                     directory = ".";
                 }
-                if (directory == null || String.IsNullOrEmpty(pattern)) {
+                if (directory == null || string.IsNullOrEmpty(pattern)) {
                     PrintErrorAt(arg, "XR0102: Path is anot a valid file spec.");
                     return null;
                 }
@@ -158,7 +157,7 @@ namespace TreeSitterTest
         
         public static void Main(string[] args)
         {
-            var files = (List<String>)null;
+            List<string> files = null;
             int a = 0;
             
             // Check if the args have at least two elements and the first one is "-files"
