@@ -43,5 +43,10 @@
         {
             // TODO: ..
         }
+
+        private static string BundleName()
+        {
+            return "";
+        }
     }
 }
