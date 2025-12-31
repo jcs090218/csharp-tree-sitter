@@ -110,7 +110,7 @@ jobs:
           tar -cf ${{ matrix.target }}.${{ matrix.bundle_os }}.tar ./output/lib/libtree-sitter.${{ matrix.ext }}
 
       - name: Target dynamic link (Windows)
-        if: runner.os != 'Windows'
+        if: runner.os == 'Windows'
         run: |
           zip -r ${{ matrix.target }}.${{ matrix.bundle_os }}.zip ./output/bin/tree-sitter.${{ matrix.ext }} .
 
