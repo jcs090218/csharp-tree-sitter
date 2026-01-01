@@ -2,7 +2,7 @@ name: Build Tree-sitter Bundle
 
 on:
   workflow_run:
-    workflows: ["Build Tree-sitter"]
+    workflows: ["Build CLI"]
     types:
       - completed
   workflow_dispatch:
@@ -22,27 +22,33 @@ jobs:
       matrix:
         include:
           - os: windows-2022
-            bundle_os: windows
+            tar_os: windows
+            tar_ext: zip
             target: x86_64-windows-msvc
             ext: dll
           - os: windows-2022
-            bundle_os: windows
+            tar_os: windows
+            tar_ext: zip
             target: aarch64-windows-msvc
             ext: dll
           - os: ubuntu-24.04
-            bundle_os: ubuntu
+            tar_os: linux
+            tar_ext: tar
             target: x86_64-linux-gnu
             ext: so
           - os: ubuntu-24.04
-            bundle_os: ubuntu
+            tar_os: linux
+            tar_ext: tar
             target: aarch64-linux-gnu
             ext: so
           - os: macos-15
-            bundle_os: macos
+            tar_os: macos
+            tar_ext: tar
             target: x86_64-macos-none
             ext: dylib
           - os: macos-15
-            bundle_os: macos
+            tar_os: macos
+            tar_ext: tar
             target: aarch64-macos-none
             ext: dylib
 
@@ -56,3 +62,17 @@ jobs:
 
       - name: Install tree-sitter CLI
         run: npm install -g tree-sitter-cli@${{ env.VERSION }}
+
+      - name: Download csharp-tree-sitter CLI
+        run: |
+          curl -fsSL https://github.com/jcs090218/csharp-tree-sitter/releases/download/${{ env.VERSON }}/cli-${{ matrix.tar_os }}.${{ matrix.tar_ext }} -o cli-${{ matrix.tar_os }}.${{ matrix.tar_ext }}
+
+      - name: Setup csharp-tree-sitter CLI (Unix)
+        if: runner.os != 'Windows'
+        run: |
+          tar -xvzf cli-${{ matrix.tar_os }}.${{ matrix.tar_ext }}
+
+      - name: Setup csharp-tree-sitter CLI (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          echo todo

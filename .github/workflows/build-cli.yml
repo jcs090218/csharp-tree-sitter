@@ -54,12 +54,12 @@ jobs:
       - name: Archive executable (Unix)
         if: runner.os != 'Windows'
         run: |
-          tar -cf cli-${{ matrix.tar_os }}.tar ./TreeSitter.CLI/bin/${{ env.VS_OUT }}/${{ env.DOT_NET }}
+          tar -cf cli-${{ matrix.tar_os }}.tar -C ./TreeSitter.CLI/bin/${{ env.VS_OUT }}/${{ env.DOT_NET }} .
 
       - name: Archive executable (Windows)
         if: runner.os == 'Windows'
         run: |
-          Compress-Archive -Path ./TreeSitter.CLI/bin/${{ env.VS_OUT }}/${{ env.DOT_NET }} -DestinationPath cli-${{ matrix.tar_os }}.zip
+          Compress-Archive -Path ./TreeSitter.CLI/bin/${{ env.VS_OUT }}/${{ env.DOT_NET }}/*.* -DestinationPath cli-${{ matrix.tar_os }}.zip
 
       - name: Upload for prerelease (Unix)
         if: github.ref == 'refs/heads/main' && runner.os != 'Windows'
