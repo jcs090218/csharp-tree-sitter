@@ -13,6 +13,7 @@ concurrency:
 
 env:
    VERSION: 0.26.3
+   CLI_EXE: csharp-tree-sitter
 
 jobs:
   ci:
@@ -63,24 +64,24 @@ jobs:
       - name: Install tree-sitter CLI
         run: npm install -g tree-sitter-cli@${{ env.VERSION }}
 
-      - name: Download csharp-tree-sitter CLI
+      - name: Download ${{ env.CLI_EXE }} CLI
         run: |
           curl -fsSL https://github.com/jcs090218/csharp-tree-sitter/releases/download/${{ env.VERSION }}/cli-${{ matrix.tar_os }}.${{ matrix.tar_ext }} -o cli-${{ matrix.tar_os }}.${{ matrix.tar_ext }}
 
-      - name: Setup csharp-tree-sitter CLI (Unix)
+      - name: Setup ${{ env.CLI_EXE }} CLI (Unix)
         if: runner.os != 'Windows'
         run: |
-          mkdir -p "$RUNNER_TEMP/csharp-tree-sitter"
-          tar -xvf cli-${{ matrix.tar_os }}.${{ matrix.tar_ext }} -C "$RUNNER_TEMP/csharp-tree-sitter"
-          chmod -R 777 "$RUNNER_TEMP/csharp-tree-sitter"
-          echo "$RUNNER_TEMP/csharp-tree-sitter" >> $GITHUB_PATH
+          mkdir -p "$RUNNER_TEMP/${{ env.CLI_EXE }}"
+          tar -xvf cli-${{ matrix.tar_os }}.${{ matrix.tar_ext }} -C "$RUNNER_TEMP/${{ env.CLI_EXE }}"
+          chmod -R 777 "$RUNNER_TEMP/${{ env.CLI_EXE }}"
+          echo "$RUNNER_TEMP/${{ env.CLI_EXE }}" >> $GITHUB_PATH
 
       - name: Setup csharp-tree-sitter CLI (Windows)
         if: runner.os == 'Windows'
         run: |
-          $dest = Join-Path $env:RUNNER_TEMP "csharp-tree-sitter"
+          $dest = Join-Path $env:RUNNER_TEMP "${{ env.CLI_EXE }}"
           New-Item -ItemType Directory -Force -Path $dest | Out-Null
           Expand-Archive -Path "cli-${{ matrix.tar_os }}.${{ matrix.tar_ext }}" -DestinationPath $dest -Force
-          "$env:RUNNER_TEMP\csharp-tree-sitter" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+          "$env:RUNNER_TEMP\${{ env.CLI_EXE }}" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
       - run: csharp-tree-sitter --version
