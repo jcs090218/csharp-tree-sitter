@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 
 namespace TreeSitter
 {
@@ -10,6 +9,18 @@ namespace TreeSitter
         private const string URL = "https://github.com/jcs090218/csharp-tree-sitter/releases/download/";
 
         /// <summary>
+        /// Return true if the tree-sitter shared library is presented.
+        /// </summary>
+        private static bool IsReady(string binPath)
+        {
+            string libName = Native.DLibName("tree-sitter");
+
+            string dll = Path.Combine(binPath, libName);
+
+            return File.Exists(dll);
+        }
+
+        /// <summary>
         /// Prepare the prebuilt Tree-sitter binary.
         /// </summary>
         public static async Task<bool> EnsurePrebuilt()
@@ -18,7 +29,11 @@ namespace TreeSitter
         }
         public static async Task<bool> EnsurePrebuilt(string version)
         {
-            string path = Path.GetDirectoryName(Environment.ProcessPath);
+            string? processPath = Environment.ProcessPath
+                ?? throw new InvalidOperationException("ProcessPath is null");
+
+            string path = Path.GetDirectoryName(processPath)
+                ?? throw new InvalidOperationException("DirectoryName is null");
 
             return await EnsurePrebuilt(version, path);
         }
@@ -27,11 +42,12 @@ namespace TreeSitter
             if (binPath == null)
                 return false;
 
+            if (IsReady(binPath))
+                return false;
+
             string url = PrebuiltUrl(version);
 
             string filename = PrebuiltName();
-
-            Console.Out.WriteLine(filename);
 
             await DownloadFileAsync(url, Path.Combine(binPath, filename));
 
@@ -51,27 +67,13 @@ namespace TreeSitter
         /// </summary>
         private static string PrebuiltName()
         {
-            Architecture arch = RuntimeInformation.OSArchitecture;
-
             string host = HostName();
 
-            string ext = (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                ? "zip"
-                : "tar";
+            string ext = Native.ArchiveExt();
 
-            switch (arch)
-            {
-                case Architecture.X86:
-                case Architecture.X64:
-                    return $"tree-sitter.x86_64-{host}.{ext}";
+            string arch = Native.ArchName();
 
-                case Architecture.Arm:
-                case Architecture.Arm64:
-                    return $"tree-sitter.aarch64-{host}.{ext}";
-            }
-
-            throw new NotSupportedException($"Architecture '{arch}' is not supported.");
-
+            return $"tree-sitter.{arch}-{host}.{ext}";
         }
 
         private static string HostName()
