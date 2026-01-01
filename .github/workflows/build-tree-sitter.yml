@@ -24,6 +24,7 @@ concurrency:
 
 env:
    VERSION: 0.1.0
+   VS_OUT: Release  # `Release` or `Debug`
 
 jobs:
   prepare:
@@ -76,17 +77,26 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Setup MSBuild
+        if: runner.os == 'Windows'
+        uses: microsoft/setup-msbuild@v2
+
       # Cross build
       - uses: mlugg/setup-zig@v2
         with:
           version: 0.15.0
 
-      - name: Build tree-sitter
+      - name: Build tree-sitter (Unix)
+        if: runner.os != 'Windows'
         working-directory: modules/tree-sitter
         run: zig build -Dbuild-shared=true -Dtarget=${{ matrix.target }} -p ../../output
 
-      - run: ls -R ./output/
-        continue-on-error: true
+      - name: Build tree-sitter (Windows)
+        if: runner.os == 'Windows'
+        working-directory: modules/tree-sitter
+        run: |
+          cmake -S . -B build/windows/
+          msbuild build/windows/tree-sitter.sln -t:rebuild -verbosity:diag -property:Configuration=${{ env.VS_OUT }}
 
       - name: Upload binary (Unix)
         uses: actions/upload-artifact@v6
@@ -101,7 +111,7 @@ jobs:
         if: runner.os == 'Windows'
         with:
           name: ${{ matrix.target }}.${{ matrix.bundle_os }}
-          path: ./output/bin/tree-sitter.${{ matrix.ext }}
+          path: ./modules/tree-sitter/build/windows/${{ env.VS_OUT }}/tree-sitter.${{ matrix.ext }}
           if-no-files-found: error
 
       - name: Target dynamic link (Unix)
@@ -112,7 +122,7 @@ jobs:
       - name: Target dynamic link (Windows)
         if: runner.os == 'Windows'
         run: |
-          Compress-Archive -Path ./output/bin/tree-sitter.${{ matrix.ext }} -DestinationPath tree-sitter.${{ matrix.target }}.zip
+          Compress-Archive -Path ./modules/tree-sitter/build/windows/${{ env.VS_OUT }}/tree-sitter.${{ matrix.ext }} -DestinationPath tree-sitter.${{ matrix.target }}.zip
 
       - name: Upload for prerelease (Unix)
         if: github.ref == 'refs/heads/main' && runner.os != 'Windows'
