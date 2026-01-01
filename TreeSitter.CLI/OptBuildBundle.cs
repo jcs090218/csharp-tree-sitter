@@ -5,8 +5,8 @@ using CommandLine;
 
 namespace TreeSitter.CLI
 {
-    [Verb("build", HelpText = "Build the language bundle")]
-    internal class OptBuild
+    [Verb("build-bundle", HelpText = "Build the language bundle")]
+    internal class OptBuildBundle
     {
         [Option('i', "input"
             , HelpText = "The input directory"
@@ -64,8 +64,12 @@ namespace TreeSitter.CLI
             process.WaitForExit();
         }
 
-        public static int Run(OptBuild opts)
+        public static int Run(OptBuildBundle opts)
         {
+            if (!Util.EnsureExec("npm") || 
+                !Util.EnsureExec("tree-sitter"))
+                return -1;
+
             string[] jss = Directory.GetFiles(
                 opts.input, "grammar.js", 
                 SearchOption.AllDirectories);

@@ -49,7 +49,21 @@ namespace TreeSitter.Bundle
             string dir = Path.GetDirectoryName(path)!;
             string file = Path.GetFileName(path);
 
+            file = EnsureTSPrefix(file);
+
             return file.Replace('-', '_');
+        }
+
+        /// <summary>
+        /// Ensure the string is with `tree-sitter-` binary prefix.
+        /// </summary>
+        private static string EnsureTSPrefix(string symbol)
+        {
+            if (symbol.StartsWith("tree-sitter-") ||
+                symbol.StartsWith("tree_sitter_"))
+                return symbol;
+
+            return $"tree-sitter-{symbol}";
         }
     }
 }

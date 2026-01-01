@@ -1,52 +1,112 @@
-﻿namespace TreeSitter.Bundle
+﻿using System.Runtime.InteropServices;
+
+namespace TreeSitter.Bundle
 {
-    public class TreeSitterBundle
+    public static class TreeSitterBundle
     {
-        private string? _binPath = string.Empty;
-
-        public TreeSitterBundle()
+        /// <summary>
+        /// Prepare the language.
+        /// </summary>
+        public static TSLanguage Load(string lang)
         {
-            _binPath = Path.GetDirectoryName(Environment.ProcessPath);
-        }
-        public TreeSitterBundle(string binPath)
-        {
-            _binPath = binPath;
-        }
+            bool success = EnsurePrebuilt(lang);
 
-        public TSLanguage Load(string name)
-        {
-            if (_binPath == null)
-            {
-                throw new InvalidOperationException(
-                    $"Invalid binary path {_binPath}");
-            }
+            if (!success)
+                throw new InvalidDataException($"Invalid bundle name: {lang}");
 
-            string path = Path.Combine(_binPath, name);
-
-            return NativeGrammar.Load(path);
+            return NativeGrammar.Load(lang);
         }
 
         /// <summary>
-        /// Download to use the pre-built binaries.
+        /// Return true if the tree-sitter shared library is presented.
         /// </summary>
-        public void EnsurePrebuilt()
+        private static bool IsReady(string binPath, string lang)
         {
-            if (_binPath == null)
-            {
-                throw new InvalidOperationException(
-                    $"Invalid binary path {_binPath}");
-            }
+            string libName = Native.DLibName($"tree-sitter-{lang}");
 
-            EnsurePrebuilt(_binPath);
-        }
-        private static void EnsurePrebuilt(string path)
-        {
-            // TODO: ..
+            string dll = Path.Combine(binPath, libName);
+
+            return File.Exists(dll);
         }
 
-        private static string BundleName()
+        /// <summary>
+        /// Prepare the prebuilt Tree-sitter language bundle.
+        /// </summary>
+        public static bool EnsurePrebuilt(string lang)
         {
-            return "";
+            return EnsurePrebuiltAsync(lang).GetAwaiter().GetResult();
+        }
+        public static async Task<bool> EnsurePrebuiltAsync(string lang)
+        {
+            return await EnsurePrebuiltAsync(lang, TreeSitter.VERSION);
+        }
+        public static async Task<bool> EnsurePrebuiltAsync(string lang, string version)
+        {
+            string? processPath = Environment.ProcessPath
+                ?? throw new InvalidOperationException("ProcessPath is null");
+
+            string path = Path.GetDirectoryName(processPath)
+                ?? throw new InvalidOperationException("DirectoryName is null");
+
+            return await EnsurePrebuiltAsync(lang, version, path);
+        }
+        public static async Task<bool> EnsurePrebuiltAsync(string lang, string version, string? binPath)
+        {
+            if (binPath == null)
+                return false;
+
+            if (IsReady(binPath, lang))
+                return true;
+
+
+            string url = PrebuiltUrl(version, lang);
+
+            string filename = PrebuiltName(lang);
+
+            // The tar/zip file.
+            string file = Path.Combine(binPath, filename);
+
+            await Util.DownloadFileAsync(url, file);
+
+            bool result = Native.UnArchive(file, binPath);
+
+            File.Delete(file);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Return the prebuilt bundle url.
+        /// </summary>
+        private static string PrebuiltUrl(string version, string lang)
+        {
+            return $"{TreeSitter.REPO_RELEASE_URL}{version}/{PrebuiltName(lang)}";
+        }
+
+        /// <summary>
+        /// Return the prebuilt bundle name.
+        /// </summary>
+        private static string PrebuiltName(string lang)
+        {
+            string host = HostName();
+
+            string ext = Native.ArchiveExt();
+
+            string arch = Native.ArchName();
+
+            return $"tree-sitter-{lang}.{arch}-{host}.{ext}";
+        }
+
+        private static string HostName()
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                return "windows-msvc";
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                return "macos-none";
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                return "linux-gnu";
+
+            return "unknown";
         }
     }
 }

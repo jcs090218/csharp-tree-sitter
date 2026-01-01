@@ -10,8 +10,10 @@ You can manually run with:
 csharp-tree-sitter parse -files [your test cpp files]
 ```
 
+To build the language bundle.
+
 ```console
-csharp-tree-sitter build
+csharp-tree-sitter build-bundle -i ./repos -o ./bin
 ```
 
 ## TODO
@@ -19,4 +21,4 @@ csharp-tree-sitter build
 - [x] Add an command line parser ([commandline](https://github.com/commandlineparser/commandline))
 - [ ] Support more languages for testing.
 - [ ] Add option to pass in languages to load.
-- [ ] Add build command option.
+- [x] Add build command option.

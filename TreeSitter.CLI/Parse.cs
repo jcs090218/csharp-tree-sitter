@@ -51,9 +51,7 @@ namespace TreeSitter.CLI
 
         public static bool ParseTree(string path, string filetext, TSParser parser)
         {
-            var bundle = new TreeSitterBundle("D:\\_lang\\cs\\_tmp");
-
-            TSLanguage lang = bundle.Load("tree-sitter-cpp");
+            TSLanguage lang = TreeSitterBundle.Load("tree-sitter-cpp");
 
             parser.set_language(lang);
 

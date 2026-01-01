@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using CommandLine;
 
 namespace TreeSitter.CLI
@@ -11,17 +10,15 @@ namespace TreeSitter.CLI
 
     public class Program
     {
-        public static async Task Main(string[] args)
+        public static void Main(string[] args)
         {
-            await TreeSitter.EnsurePrebuilt();
-
             var result = Parser.Default.ParseArguments<
-                OptGlobal, OptParse , OptBuild
+                OptGlobal, OptParse , OptBuildBundle
                 >(args);
 
             result.MapResult(
                 (OptParse opts) => OptParse.Run(opts),
-                (OptBuild opts) => OptBuild.Run(opts),
+                (OptBuildBundle opts) => OptBuildBundle.Run(opts),
                 errs => 1);
         }
     }

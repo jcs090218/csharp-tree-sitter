@@ -4,9 +4,9 @@ namespace TreeSitter
 {
     public static class TreeSitter
     {
-        private const string DEFAULT_VERSION = "0.1.0";
+        public const string VERSION = "0.1.0";
 
-        private const string URL = "https://github.com/jcs090218/csharp-tree-sitter/releases/download/";
+        public const string REPO_RELEASE_URL = "https://github.com/jcs090218/csharp-tree-sitter/releases/download/";
 
         /// <summary>
         /// Return true if the tree-sitter shared library is presented.
@@ -23,11 +23,15 @@ namespace TreeSitter
         /// <summary>
         /// Prepare the prebuilt Tree-sitter binary.
         /// </summary>
-        public static async Task<bool> EnsurePrebuilt()
+        public static bool EnsurePrebuilt()
         {
-            return await EnsurePrebuilt(DEFAULT_VERSION);
+            return EnsurePrebuiltAsync().GetAwaiter().GetResult();
         }
-        public static async Task<bool> EnsurePrebuilt(string version)
+        public static async Task<bool> EnsurePrebuiltAsync()
+        {
+            return await EnsurePrebuiltAsync(VERSION);
+        }
+        public static async Task<bool> EnsurePrebuiltAsync(string version)
         {
             string? processPath = Environment.ProcessPath
                 ?? throw new InvalidOperationException("ProcessPath is null");
@@ -35,9 +39,9 @@ namespace TreeSitter
             string path = Path.GetDirectoryName(processPath)
                 ?? throw new InvalidOperationException("DirectoryName is null");
 
-            return await EnsurePrebuilt(version, path);
+            return await EnsurePrebuiltAsync(version, path);
         }
-        public static async Task<bool> EnsurePrebuilt(string version, string? binPath)
+        public static async Task<bool> EnsurePrebuiltAsync(string version, string? binPath)
         {
             if (binPath == null)
                 return false;
@@ -52,7 +56,7 @@ namespace TreeSitter
             // The tar/zip file.
             string file = Path.Combine(binPath, filename);
 
-            await DownloadFileAsync(url, file);
+            await Util.DownloadFileAsync(url, file);
 
             bool result = Native.UnArchive(file, binPath);
 
@@ -66,7 +70,7 @@ namespace TreeSitter
         /// </summary>
         private static string PrebuiltUrl(string version)
         {
-            return $"{URL}{version}/{PrebuiltName()}";
+            return $"{REPO_RELEASE_URL}{version}/{PrebuiltName()}";
         }
 
         /// <summary>
@@ -93,34 +97,6 @@ namespace TreeSitter
                 return "linux-gnu";
 
             return "unknown";
-        }
-
-        public static async Task DownloadFileAsync(string fileUrl, string destinationPath)
-        {
-            using var client = new HttpClient();
-
-            try
-            {
-                // Get the stream from the URL
-                using var stream = await client.GetStreamAsync(fileUrl);
-
-                // Create a FileStream to write the data to the local file
-                using var fstream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write);
-
-                // Copy the data from the download stream to the file stream asynchronously
-                await stream.CopyToAsync(fstream);
-                await fstream.FlushAsync();
-
-                Console.WriteLine($"Downloaded file saved to: {destinationPath}");
-            }
-            catch (HttpRequestException e)
-            {
-                Console.WriteLine($"Error downloading file: {e.Message}");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"An error occurred: {e.Message}");
-            }
         }
     }
 }

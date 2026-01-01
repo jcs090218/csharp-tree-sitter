@@ -12,6 +12,8 @@ namespace TreeSitter.CLI
 
         public static int Run(OptParse opts)
         {
+            TreeSitter.EnsurePrebuilt();
+
             string[] inputs = opts.files.ToArray();
 
             List<string> files = null;
