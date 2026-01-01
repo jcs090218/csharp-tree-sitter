@@ -43,15 +43,22 @@ namespace TreeSitter
                 return false;
 
             if (IsReady(binPath))
-                return false;
+                return true;
 
             string url = PrebuiltUrl(version);
 
             string filename = PrebuiltName();
 
-            await DownloadFileAsync(url, Path.Combine(binPath, filename));
+            // The tar/zip file.
+            string file = Path.Combine(binPath, filename);
 
-            return true;
+            await DownloadFileAsync(url, file);
+
+            bool result = Native.UnArchive(file, binPath);
+
+            File.Delete(file);
+
+            return result;
         }
 
         /// <summary>

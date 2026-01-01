@@ -1,4 +1,6 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Formats.Tar;
+using System.IO.Compression;
+using System.Runtime.InteropServices;
 
 namespace TreeSitter
 {
@@ -31,6 +33,46 @@ namespace TreeSitter
             return (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 ? "zip"
                 : "tar";
+        }
+
+        /// <summary>
+        /// Unarchive the file.
+        /// </summary>
+        public static bool UnArchive(string path, string dest)
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                return UnzipFile(path, dest);
+
+            return ExtractTarFile(path, dest);
+        }
+
+        private static bool UnzipFile(string path, string dest)
+        {
+            if (!Directory.Exists(dest))
+                Directory.CreateDirectory(dest);
+
+            try
+            {
+                ZipFile.ExtractToDirectory(path, dest, overwriteFiles: true);
+
+                return true;
+            }
+            catch (IOException)
+            {
+                // ..
+            }
+
+            return false;
+        }
+
+        private static bool ExtractTarFile(string path, string dest)
+        {
+            if (!Directory.Exists(dest))
+                Directory.CreateDirectory(dest);
+
+            TarFile.ExtractToDirectory(path, dest, overwriteFiles: true);
+
+            return true;
         }
 
         /// <summary>
