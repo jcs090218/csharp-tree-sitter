@@ -1,0 +1,59 @@
+name: Build Tree-sitter Bundle
+
+on:
+  workflow_run:
+    workflows: ["Build Tree-sitter"]
+    types:
+      - completed
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+   VERSION: 0.1.0
+   TS_VERSION: 0.26.3
+
+jobs:
+  ci:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-2022
+            bundle_os: windows
+            target: x86_64-windows-msvc
+            ext: dll
+          - os: windows-2022
+            bundle_os: windows
+            target: aarch64-windows-msvc
+            ext: dll
+          - os: ubuntu-24.04
+            bundle_os: ubuntu
+            target: x86_64-linux-gnu
+            ext: so
+          - os: ubuntu-24.04
+            bundle_os: ubuntu
+            target: aarch64-linux-gnu
+            ext: so
+          - os: macos-15
+            bundle_os: macos
+            target: x86_64-macos-none
+            ext: dylib
+          - os: macos-15
+            bundle_os: macos
+            target: aarch64-macos-none
+            ext: dylib
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          submodules: recursive
+
+      - name: Init submodules
+        run: git submodule update --checkout
+
+      - name: Install tree-sitter CLI
+        run: npm install -g tree-sitter-cli@${{ env.TS_VERSION }}

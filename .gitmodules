@@ -2,3 +2,15 @@
 	path = core/tree-sitter
 	url = https://github.com/tree-sitter/tree-sitter
 	branch = master
+[submodule "repos/cpp"]
+	path = repos/cpp
+	url = https://github.com/tree-sitter/tree-sitter-cpp
+	branch = master
+	update = none
+	ignore = dirty
+[submodule "repos/c-sharp"]
+	path = repos/c-sharp
+	url = https://github.com/tree-sitter/tree-sitter-c-sharp
+	branch = master
+	update = none
+	ignore = dirty
