@@ -72,6 +72,7 @@ jobs:
         run: |
           mkdir -p "$RUNNER_TEMP/csharp-tree-sitter"
           tar -xvf cli-${{ matrix.tar_os }}.${{ matrix.tar_ext }} -C "$RUNNER_TEMP/csharp-tree-sitter"
+          chmod -R 777 "$RUNNER_TEMP/csharp-tree-sitter"
           echo "$RUNNER_TEMP/csharp-tree-sitter" >> $GITHUB_PATH
 
       - name: Setup csharp-tree-sitter CLI (Windows)
