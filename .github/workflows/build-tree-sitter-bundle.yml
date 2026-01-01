@@ -81,6 +81,6 @@ jobs:
           $dest = Join-Path $env:RUNNER_TEMP "csharp-tree-sitter"
           New-Item -ItemType Directory -Force -Path $dest | Out-Null
           Expand-Archive -Path "cli-${{ matrix.tar_os }}.${{ matrix.tar_ext }}" -DestinationPath $dest -Force
-          "$env:RUNNER_TEMP\csharp-tree-sitter\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+          "$env:RUNNER_TEMP\csharp-tree-sitter" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
       - run: csharp-tree-sitter --version
