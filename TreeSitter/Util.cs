@@ -71,5 +71,13 @@ namespace TreeSitter
 
             return false;
         }
+
+        public static string RemovePrefix(string str, string prefix)
+        {
+            if (str.StartsWith(prefix))
+                return str.Substring(prefix.Length);
+
+            return str;
+        }
     }
 }

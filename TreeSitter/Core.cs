@@ -98,5 +98,13 @@ namespace TreeSitter
 
             return "unknown";
         }
+
+        /// <summary>
+        /// Return the string removes tree-sitter as prefix.
+        /// </summary>
+        public static string RemovePrefix(string str)
+        {
+            return Util.RemovePrefix(str, "tree-sitter-");
+        }
     }
 }

@@ -41,6 +41,7 @@ namespace TreeSitter.CLI
         {
             string dir = Path.GetDirectoryName(js)!;
             string lang = Path.GetFileName(dir);
+            lang = TreeSitter.RemovePrefix(lang);
             string dlib = Native.DLibName(lang);
 
             string f_dlib = Path.Combine(output, dlib);
