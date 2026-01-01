@@ -49,7 +49,7 @@ jobs:
           dotnet-version: '9.0.x'
 
       - name: Build the project
-        run: dotnet build
+        run: dotnet build --configuration ${{ env.VS_OUT }}
 
       - name: Archive executable (Unix)
         if: runner.os != 'Windows'

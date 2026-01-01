@@ -6,6 +6,7 @@
 
 [![Build Tree-sitter](https://github.com/jcs090218/csharp-tree-sitter/actions/workflows/build-tree-sitter.yml/badge.svg)](https://github.com/jcs090218/csharp-tree-sitter/actions/workflows/build-tree-sitter.yml)
 [![Build Tree-sitter Bundle](https://github.com/jcs090218/csharp-tree-sitter/actions/workflows/build-tree-sitter-bundle.yml/badge.svg)](https://github.com/jcs090218/csharp-tree-sitter/actions/workflows/build-tree-sitter-bundle.yml)
+[![Build CLI](https://github.com/jcs090218/csharp-tree-sitter/actions/workflows/build-cli.yml/badge.svg)](https://github.com/jcs090218/csharp-tree-sitter/actions/workflows/build-cli.yml)
 
 ## Introduction
 
