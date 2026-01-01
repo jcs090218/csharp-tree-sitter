@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using TreeSitter.Bundle;
 
 namespace TreeSitter.CLI
@@ -169,8 +170,10 @@ namespace TreeSitter.CLI
             return files;
         }
 
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
+            await TreeSitter.EnsurePrebuilt();
+
             List<string> files = null;
             int a = 0;
 

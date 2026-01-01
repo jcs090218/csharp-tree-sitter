@@ -1,17 +1,26 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.IO;
+using System.Runtime.InteropServices;
 
 namespace TreeSitter
 {
     public static class TreeSitter
     {
+        private const string DEFAULT_VERSION = "0.1.0";
+
         private const string URL = "https://github.com/jcs090218/csharp-tree-sitter/releases/download/";
 
         /// <summary>
         /// Prepare the prebuilt Tree-sitter binary.
         /// </summary>
+        public static async Task<bool> EnsurePrebuilt()
+        {
+            return await EnsurePrebuilt(DEFAULT_VERSION);
+        }
         public static async Task<bool> EnsurePrebuilt(string version)
         {
-            return await EnsurePrebuilt(version, Environment.ProcessPath);
+            string path = Path.GetDirectoryName(Environment.ProcessPath);
+
+            return await EnsurePrebuilt(version, path);
         }
         public static async Task<bool> EnsurePrebuilt(string version, string? binPath)
         {
@@ -20,7 +29,11 @@ namespace TreeSitter
 
             string url = PrebuiltUrl(version);
 
-            await DownloadFileAsync(url, binPath);
+            string filename = PrebuiltName();
+
+            Console.Out.WriteLine(filename);
+
+            await DownloadFileAsync(url, Path.Combine(binPath, filename));
 
             return true;
         }
@@ -76,17 +89,18 @@ namespace TreeSitter
         public static async Task DownloadFileAsync(string fileUrl, string destinationPath)
         {
             using var client = new HttpClient();
+
             try
             {
                 // Get the stream from the URL
-                using var downloadStream = await client.GetStreamAsync(fileUrl);
+                using var stream = await client.GetStreamAsync(fileUrl);
 
                 // Create a FileStream to write the data to the local file
-                using var fileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write);
+                using var fstream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write);
 
                 // Copy the data from the download stream to the file stream asynchronously
-                await downloadStream.CopyToAsync(fileStream);
-                await fileStream.FlushAsync();
+                await stream.CopyToAsync(fstream);
+                await fstream.FlushAsync();
 
                 Console.WriteLine($"Downloaded file saved to: {destinationPath}");
             }
