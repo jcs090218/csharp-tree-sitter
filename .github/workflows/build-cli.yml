@@ -1,0 +1,84 @@
+name: Build CLI
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - TreeSitter/**
+      - '**.yml'
+      - '**.json'
+      # ignore
+      - '!**/docs.yml'
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - '**/docs.yml'
+      - '**.md'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+   VERSION: 0.26.3
+   VS_OUT: Release  # `Release` or `Debug`
+   DOT_NET: net8.0
+   BIN_PATH: TreeSitter.CLI/bin/${{ env.VS_OUT }}/${{ env.DOT_NET }}
+
+jobs:
+  ci:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-2022
+            tar_os: windows
+          - os: ubuntu-24.04
+            tar_os: linux
+          - os: macos-15
+            tar_os: macos
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Build the project
+        run: dotnet build
+
+      - name: Archive executable (Unix)
+        if: runner.os != 'Windows'
+        run: |
+          tar -cf cli-${{ matrix.tar_os }}.tar ./TreeSitter.CLI/bin/${{ env.VS_OUT }}/${{ env.DOT_NET }}
+
+      - name: Archive executable (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          Compress-Archive -Path ./TreeSitter.CLI/bin/${{ env.VS_OUT }}/${{ env.DOT_NET }} -DestinationPath cli-${{ matrix.tar_os }}.zip
+
+      - name: Upload for prerelease (Unix)
+        if: github.ref == 'refs/heads/main' && runner.os != 'Windows'
+        uses: softprops/action-gh-release@v2.5.0
+        with:
+          tag_name: ${{ env.VERSION }}
+          token: ${{ secrets.PAT }}
+          prerelease: true
+          draft: false
+          files: ./cli-${{ matrix.tar_os }}.tar
+
+      - name: Upload for prerelease (Windows)
+        if: github.ref == 'refs/heads/main' && runner.os == 'Windows'
+        uses: softprops/action-gh-release@v2.5.0
+        with:
+          tag_name: ${{ env.VERSION }}
+          token: ${{ secrets.PAT }}
+          prerelease: true
+          draft: false
+          files: ./cli-${{ matrix.tar_os }}.zip
+  

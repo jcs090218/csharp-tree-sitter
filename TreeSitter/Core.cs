@@ -4,7 +4,7 @@ namespace TreeSitter
 {
     public static class TreeSitter
     {
-        public const string VERSION = "0.1.0";
+        public const string VERSION = "0.26.3";
 
         public const string REPO_RELEASE_URL = "https://github.com/jcs090218/csharp-tree-sitter/releases/download/";
 

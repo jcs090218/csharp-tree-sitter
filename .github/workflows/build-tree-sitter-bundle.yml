@@ -12,8 +12,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-   VERSION: 0.1.0
-   TS_VERSION: 0.26.3
+   VERSION: 0.26.3
 
 jobs:
   ci:
@@ -56,4 +55,4 @@ jobs:
         run: git submodule update --checkout
 
       - name: Install tree-sitter CLI
-        run: npm install -g tree-sitter-cli@${{ env.TS_VERSION }}
+        run: npm install -g tree-sitter-cli@${{ env.VERSION }}

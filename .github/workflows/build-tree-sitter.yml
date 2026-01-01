@@ -23,7 +23,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-   VERSION: 0.1.0
+   VERSION: 0.26.3
    VS_OUT: Release  # `Release` or `Debug`
    TS_PATH: core/tree-sitter
 
@@ -115,12 +115,12 @@ jobs:
           path: ./${{ env.TS_PATH }}/build/windows/${{ env.VS_OUT }}/tree-sitter.${{ matrix.ext }}
           if-no-files-found: error
 
-      - name: Target dynamic link (Unix)
+      - name: Archive dynamic link (Unix)
         if: runner.os != 'Windows'
         run: |
           tar -cf tree-sitter.${{ matrix.target }}.tar ./output/lib/libtree-sitter.${{ matrix.ext }}
 
-      - name: Target dynamic link (Windows)
+      - name: Archive dynamic link (Windows)
         if: runner.os == 'Windows'
         run: |
           Compress-Archive -Path ./${{ env.TS_PATH }}/build/windows/${{ env.VS_OUT }}/tree-sitter.${{ matrix.ext }} -DestinationPath tree-sitter.${{ matrix.target }}.zip
