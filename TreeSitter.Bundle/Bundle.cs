@@ -29,7 +29,7 @@
         /// <summary>
         /// Download to use the pre-built binaries.
         /// </summary>
-        public void DownloadPrebuilt()
+        public void EnsurePrebuilt()
         {
             if (_binPath == null)
             {
@@ -37,9 +37,9 @@
                     $"Invalid binary path {_binPath}");
             }
 
-            DownloadPrebuilt(_binPath);
+            EnsurePrebuilt(_binPath);
         }
-        private static void DownloadPrebuilt(string path)
+        private static void EnsurePrebuilt(string path)
         {
             // TODO: ..
         }

@@ -1,3 +1,3 @@
 # TreeSitter.Bundle
 
-WIP
+Language bundle for C# Tree-sitter NuGet package.
