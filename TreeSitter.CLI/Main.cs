@@ -1,44 +1,28 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using CommandLine;
 
 namespace TreeSitter.CLI
 {
+    // @global-options
+    class OptGlobal
+    {
+        // ..
+    }
+
     public class Program
     {
-        class Options
-        {
-            [Option("files"
-                , HelpText = "The source files to read")]
-            public IEnumerable<string> files { get; set; }
-        }
-
         public static async Task Main(string[] args)
         {
             await TreeSitter.EnsurePrebuilt();
 
-            Parser.Default.ParseArguments<Options>(args)
-                .WithParsed(RunOptions)
-                .WithNotParsed(HandleParseError);
-        }
+            var result = Parser.Default.ParseArguments<
+                OptGlobal, OptParse , OptBuild
+                >(args);
 
-        private static void RunOptions(Options opts)
-        {
-            string[] inputs = opts.files.ToArray();
-
-            List<string> files = null;
-
-            if ((files = Parse.ArgsToPaths(inputs)) != null)
-            {
-                Parse.PrintTree(files);
-            }
-        }
-
-        private static void HandleParseError(IEnumerable<Error> errs)
-        {
-            //handle e
+            result.MapResult(
+                (OptParse opts) => OptParse.Run(opts),
+                (OptBuild opts) => OptBuild.Run(opts),
+                errs => 1);
         }
     }
 }

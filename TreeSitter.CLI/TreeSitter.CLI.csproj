@@ -13,6 +13,8 @@
   <ItemGroup>
    <Compile Include="Bundle.cs" />
    <Compile Include="Main.cs" />
+   <Compile Include="OptBuild.cs" />
+   <Compile Include="OptParse.cs" />
    <Compile Include="Parse.cs" />
   </ItemGroup>
 

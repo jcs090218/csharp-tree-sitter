@@ -7,11 +7,16 @@ which walks the AST tree in post order by calling
 You can manually run with:
 
 ```console
-csharp-tree-sitter.exe -files [your test cpp files]
+csharp-tree-sitter parse -files [your test cpp files]
+```
+
+```console
+csharp-tree-sitter build
 ```
 
 ## TODO
 
-- [ ] Add an command line parser ([commandline](https://github.com/commandlineparser/commandline))
+- [x] Add an command line parser ([commandline](https://github.com/commandlineparser/commandline))
 - [ ] Support more languages for testing.
 - [ ] Add option to pass in languages to load.
+- [ ] Add build command option.
