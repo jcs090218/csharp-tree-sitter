@@ -65,7 +65,7 @@ jobs:
 
       - name: Download csharp-tree-sitter CLI
         run: |
-          curl -fsSL https://github.com/jcs090218/csharp-tree-sitter/releases/download/${{ env.VERSON }}/cli-${{ matrix.tar_os }}.${{ matrix.tar_ext }} -o cli-${{ matrix.tar_os }}.${{ matrix.tar_ext }}
+          curl -fsSL https://github.com/jcs090218/csharp-tree-sitter/releases/download/${{ env.VERSION }}/cli-${{ matrix.tar_os }}.${{ matrix.tar_ext }} -o cli-${{ matrix.tar_os }}.${{ matrix.tar_ext }}
 
       - name: Setup csharp-tree-sitter CLI (Unix)
         if: runner.os != 'Windows'
