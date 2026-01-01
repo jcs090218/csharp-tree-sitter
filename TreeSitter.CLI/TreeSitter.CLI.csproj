@@ -11,12 +11,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+   <Compile Include="Bundle.cs" />
    <Compile Include="Main.cs" />
+   <Compile Include="Parse.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\TreeSitter\TreeSitter.csproj" />
     <ProjectReference Include="..\TreeSitter.Bundle\TreeSitter.Bundle.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.9.1" />
   </ItemGroup>
 
 </Project>
