@@ -4,6 +4,8 @@
 
 # C# Tree-sitter
 
+[![Build Tree-sitter](https://github.com/jcs090218/csharp-tree-sitter/actions/workflows/build-tree-sitter.yml/badge.svg)](https://github.com/jcs090218/csharp-tree-sitter/actions/workflows/build-tree-sitter.yml)
+
 ## Introduction
 
 This module provides C# bindings to the [Tree-sitter][] parsing library,
