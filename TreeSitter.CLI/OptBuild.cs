@@ -1,28 +1,85 @@
-﻿using CommandLine;
-using System;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
+using CommandLine;
 
 namespace TreeSitter.CLI
 {
     [Verb("build", HelpText = "Build the language bundle")]
     internal class OptBuild
     {
+        [Option('i', "input"
+            , HelpText = "The input directory"
+            , Required = true)]
+        public string input { get; set; }
+
         [Option('o', "output"
             , HelpText = "The output directory"
             , Required = true)]
         public string output { get; set; }
 
+
+        /// <summary>
+        /// Returns true if the given path is NOT an invalid node_modules path.
+        /// </summary>
+        private static bool IsValidPath(string path)
+        {
+            string normalized = path.Replace(Path.AltDirectorySeparatorChar, Path.DirectorySeparatorChar);
+
+            var segments = normalized.Split(Path.DirectorySeparatorChar, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (var segment in segments)
+            {
+                if (segment.Equals("node_modules", StringComparison.OrdinalIgnoreCase))
+                    return false;
+            }
+
+            return true;
+        }
+
+        private static void TryBuild(string output, string js)
+        {
+            string dir = Path.GetDirectoryName(js)!;
+            string lang = Path.GetFileName(dir);
+            string dlib = Native.DLibName(lang);
+
+            string f_dlib = Path.Combine(output, dlib);
+            
+            f_dlib = Path.GetFullPath(f_dlib);  // normalize
+
+            Console.Error.WriteLine($"Compiling {f_dlib}...");
+
+            using var process = new Process();
+
+            process.StartInfo.FileName = "tree-sitter";
+            process.StartInfo.Arguments = $"build -o {f_dlib}";
+            process.StartInfo.WorkingDirectory = dir;
+
+            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.RedirectStandardOutput = false;
+            process.StartInfo.RedirectStandardError = false;
+            process.StartInfo.CreateNoWindow = false;
+
+            process.Start();
+            process.WaitForExit();
+        }
+
         public static int Run(OptBuild opts)
         {
             string[] jss = Directory.GetFiles(
-                opts.output, "grammar.js", 
+                opts.input, "grammar.js", 
                 SearchOption.AllDirectories);
 
-            Console.WriteLine(jss.Length);
+            string cwd = Directory.GetCurrentDirectory();
+
+            string output = Path.Combine(cwd, opts.output);
 
             foreach (string js in jss)
             {
-                Console.WriteLine(js);
+                if (!IsValidPath(js))
+                    continue;
+
+                TryBuild(output, js);
             }
 
             return 0;
