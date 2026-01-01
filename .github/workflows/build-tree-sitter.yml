@@ -131,7 +131,7 @@ jobs:
         with:
           tag_name: ${{ env.VERSION }}
           token: ${{ secrets.PAT }}
-          prerelease: true
+          prerelease: false
           draft: false
           files: ./tree-sitter.${{ matrix.target }}.tar
 
@@ -141,7 +141,7 @@ jobs:
         with:
           tag_name: ${{ env.VERSION }}
           token: ${{ secrets.PAT }}
-          prerelease: true
+          prerelease: false
           draft: false
           files: ./tree-sitter.${{ matrix.target }}.zip
   

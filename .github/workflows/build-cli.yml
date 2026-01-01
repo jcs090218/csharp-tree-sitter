@@ -67,7 +67,7 @@ jobs:
         with:
           tag_name: ${{ env.VERSION }}
           token: ${{ secrets.PAT }}
-          prerelease: true
+          prerelease: false
           draft: false
           files: ./cli-${{ matrix.tar_os }}.tar
 
@@ -77,7 +77,7 @@ jobs:
         with:
           tag_name: ${{ env.VERSION }}
           token: ${{ secrets.PAT }}
-          prerelease: true
+          prerelease: false
           draft: false
           files: ./cli-${{ matrix.tar_os }}.zip
   
