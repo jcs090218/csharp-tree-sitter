@@ -1,4 +1,6 @@
 # ignore these directories
+_test/
+
 **/.chunks*
 **/.cache
 **/.tokens

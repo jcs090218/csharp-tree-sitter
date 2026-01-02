@@ -76,7 +76,11 @@ namespace TreeSitter
             return ExtractTarFile(path, dest);
         }
 
-        private static bool UnzipFile(string path, string dest)
+        /// <summary>
+        /// Unzip a zip file.
+        /// </summary>
+        /// <returns></returns>
+        public static bool UnzipFile(string path, string dest)
         {
             if (!Directory.Exists(dest))
                 Directory.CreateDirectory(dest);
@@ -95,7 +99,10 @@ namespace TreeSitter
             return false;
         }
 
-        private static bool ExtractTarFile(string path, string dest)
+        /// <summary>
+        /// Extract a tar file.
+        /// </summary>
+        public static bool ExtractTarFile(string path, string dest)
         {
             if (!Directory.Exists(dest))
                 Directory.CreateDirectory(dest);

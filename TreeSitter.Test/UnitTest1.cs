@@ -11,11 +11,27 @@ namespace TreeSitter.Test
             TreeSitter.EnsurePrebuilt();
         }
 
+#if false
+        [Test]
+        public void TestExtract()
+        {
+            string tar = Util.FromProjectDir(
+                "_test", "tree-sitter-bundle.x86_64-macos-none.tar");
+
+            string dest = Util.FromProjectDir("_test");
+
+            Native.ExtractTarFile(tar, dest);
+        }
+#endif
+
         #region ActionScript
 
         [Test]
         public void parse_actionscript_example_1()
         {
+            // Ensure the core shared library is presented.
+            TreeSitter.EnsurePrebuilt();
+
             string path = Util.FromProjectDir(
                 "fixtures", "actionscript", "example_1.as");
 
@@ -223,7 +239,7 @@ echo ""Hello, $USER_NAME! Welcome.""
         public void parse_cpp_example_1_raw()
         {
             Util.ParseWithLangText(TreeSitterBundle.Language.cpp, @"
-#include <iostream> // Include the input/output stream library
+# include <iostream> // Include the input/output stream library
 
 int main() {
     // std::cout prints to the console
