@@ -6,6 +6,9 @@ on:
       - main
     paths:
       - TreeSitter/**
+      - TreeSitter.Bundle/**
+      - TreeSitter.CLI/**
+      - '**.cs'
       - '**.yml'
       - '**.json'
       # ignore
