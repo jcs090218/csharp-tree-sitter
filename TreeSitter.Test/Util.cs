@@ -48,22 +48,27 @@ namespace TreeSitter.Test
 
         #endregion
 
-        public static void ParseWithLang(
+        public static void ParseWithLangFile(
             TreeSitterBundle.Language lang,
             string filename)
         {
-            using var parser = new TSParser();
-
-            TSLanguage tsLang = TreeSitterBundle.Load(lang);
-
-            parser.set_language(tsLang);
-
             string path = FromProjectDir("fixtures", filename);
 
             var filetext = File.ReadAllText(path);
 
-            using var tree = parser.parse_string(null, filetext);
+            ParseWithLangText(lang, filetext);
+        }
 
+        public static void ParseWithLangText(
+            TreeSitterBundle.Language lang,
+            string text)
+        {
+            using var parser = new TSParser();
+
+            TSLanguage tsLang = TreeSitterBundle.Load(lang);
+            parser.set_language(tsLang);
+
+            using var tree = parser.parse_string(null, text);
         }
     }
 }

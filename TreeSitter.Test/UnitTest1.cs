@@ -1,4 +1,5 @@
-﻿using TreeSitter.Bundle;
+﻿using System.IO;
+using TreeSitter.Bundle;
 
 namespace TreeSitter.Test
 {
@@ -16,9 +17,23 @@ namespace TreeSitter.Test
         {
             string path = Util.FromProjectDir("fixtures", "cpp", "example_1.cpp");
 
-            Util.ParseWithLang(TreeSitterBundle.Language.cpp, path);
+            Util.ParseWithLangFile(TreeSitterBundle.Language.cpp, path);
 
             Assert.Pass();
+        }
+
+        public void parse_cpp_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.cpp, @"
+#include <iostream> // Include the input/output stream library
+
+int main() {
+    // std::cout prints to the console
+    // std::endl adds a newline character and flushes the stream
+    std::cout << ""Hello, World!"" << std::endl;
+
+    return 0; // Indicates that the program ended successfully
+}");
         }
     }
 }
