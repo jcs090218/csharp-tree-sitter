@@ -14,8 +14,8 @@ through P/Invoke from their C# code.
 
 You can install it by downloading the latest `.nupkg` files from our [release](https://github.com/jcs090218/csharp-tree-sitter/releases) page.
 
-- `TreeSitter.0.26.3.nupkg`
-- `TreeSitter.Bundle.0.26.3.nupkg`
+- `TreeSitter.<version>.nupkg` (C# Bindings)
+- `TreeSitter.Bundle.<version>.nupkg` (Language Bundle)
 
 ## 🏆 Features
 
@@ -68,7 +68,9 @@ dotnet build csharp-tree-sitter.csproj
 
 ### Testing
 
-WIP.
+```console
+dotnet test
+```
 
 ### Adding new grammars
 
