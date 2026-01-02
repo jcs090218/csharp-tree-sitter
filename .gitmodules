@@ -29,3 +29,12 @@
 [submodule "repos/arduino"]
 	path = repos/arduino
 	url = https://github.com/tree-sitter-grammars/tree-sitter-arduino
+	branch = master
+[submodule "repos/asm"]
+	path = repos/asm
+	url = https://github.com/RubixDev/tree-sitter-asm
+	branch = main
+[submodule "repos/bash"]
+	path = repos/bash
+	url = https://github.com/tree-sitter/tree-sitter-bash
+	branch = master

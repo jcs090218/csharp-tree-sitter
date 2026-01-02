@@ -127,6 +127,85 @@ end add_by_referance;
 
         #endregion
 
+        #region Assembly
+
+        [Test]
+        public void parse_asm_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "asm", "example_1.asm");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.asm, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_asm_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.asm, @"
+global _start
+
+section .text
+
+_start: nop
+
+        ; prompt user for file name
+        mov rax, SYS_WRITE
+        mov rdi, FD_STDOUT
+        mov rsi, str_pname
+        mov rdx, len_pname
+        syscall
+
+        ; read file name
+        mov rax, SYS_READ
+        mov rdi, FD_STDIN
+        mov rsi, str_name
+        mov rdx, len_name
+        syscall
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region Bash
+
+        [Test]
+        public void parse_bash_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "bash", "example_1.sh");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.bash, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_bash_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.bash, @"
+#!/bin/bash
+
+# Prompt the user for their name
+echo ""What is your name?""
+
+# Read the input from the user and store it in a variable
+read USER_NAME
+
+# Print the greeting using the stored variable
+echo ""Hello, $USER_NAME! Welcome.""
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
         #region C++
 
         [Test]

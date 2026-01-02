@@ -10,6 +10,8 @@ namespace TreeSitter.Bundle
             actionscript,
             ada,
             arduino,
+            asm,
+            bash,
             c,
             cpp,
             c_sharp,
