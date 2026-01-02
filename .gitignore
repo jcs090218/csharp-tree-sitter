@@ -6,16 +6,6 @@ _test/
 _tests/
 output/
 
-**/.chunks*
-**/.cache
-**/.tokens
-**/.archive
-**/obj
-**/bin
-**/src/obj
-**/src/bin
-**/_*
-
 *_
 *~
 \#*\#

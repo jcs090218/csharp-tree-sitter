@@ -1,0 +1,19 @@
+# ignore these directories
+**/.chunks*
+**/.cache
+**/.tokens
+**/.archive
+**/obj
+**/bin
+**/src/obj
+**/src/bin
+**/_*
+
+*_
+*~
+\#*\#
+*.obj
+*.pdb
+*.lib
+*.exp
+*.dll
