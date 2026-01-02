@@ -11,12 +11,129 @@ namespace TreeSitter.Test
             TreeSitter.EnsurePrebuilt();
         }
 
+        #region ActionScript
+
+        [Test]
+        public void parse_actionscript_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "actionscript", "example_1.as");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.actionscript, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_actionscript_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.actionscript, @"
+package org.wikipedia.example {
+    import flash.display.Sprite;
+    import flash.text.TextField;
+
+    public class Greeter extends Sprite {
+        public function Greeter() {
+            // Create a new TextField object
+            var txtHello: TextField = new TextField();
+            // Set the text content
+            txtHello.text = ""Hello World"";
+            // Add the TextField to the display list (make it visible on stage)
+            this.addChild(txtHello);
+        }
+    }
+}
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region Ada
+
+        [Test]
+        public void parse_ada_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "ada", "example_1.adb");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.ada, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_ada_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.ada, @"
+with Ada.integer_text_IO;
+use Ada;
+
+procedure add_by_referance is 
+    procedure add(a, b: in Integer; c: out Integer) is
+    begin
+        c := a + b;
+    end add;
+    answer : Integer;
+begin
+    add(3, 5, answer);
+    integer_text_IO.put(answer);
+end add_by_referance;
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region Arduino
+
+        [Test]
+        public void parse_arduino_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "arduino", "example_1.cpp");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.arduino, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_arduino_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.arduino, @"
+with Ada.integer_text_IO;
+use Ada;
+
+procedure add_by_referance is 
+    procedure add(a, b: in Integer; c: out Integer) is
+    begin
+        c := a + b;
+    end add;
+    answer : Integer;
+begin
+    add(3, 5, answer);
+    integer_text_IO.put(answer);
+end add_by_referance;
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
         #region C++
 
         [Test]
         public void parse_cpp_example_1()
         {
-            string path = Util.FromProjectDir("fixtures", "cpp", "example_1.cpp");
+            string path = Util.FromProjectDir(
+                "fixtures", "cpp", "example_1.cpp");
 
             Util.ParseWithLangFile(TreeSitterBundle.Language.cpp, path);
 
@@ -35,7 +152,11 @@ int main() {
     std::cout << ""Hello, World!"" << std::endl;
 
     return 0; // Indicates that the program ended successfully
-}");
+}
+
+");
+
+            Assert.Pass();
         }
 
         #endregion
@@ -45,7 +166,8 @@ int main() {
         [Test]
         public void parse_c_sharp_example_1()
         {
-            string path = Util.FromProjectDir("fixtures", "c-sharp", "example_1.cs");
+            string path = Util.FromProjectDir(
+                "fixtures", "c-sharp", "example_1.cs");
 
             Util.ParseWithLangFile(TreeSitterBundle.Language.c_sharp, path);
 
@@ -63,7 +185,10 @@ File.WriteAllText(""filename.txt"", writeText);  // Create a file and write the 
 
 string readText = File.ReadAllText(""filename.txt"");  // Read the contents of the file
 Console.WriteLine(readText);  // Output the content
+
 ");
+
+            Assert.Pass();
         }
 
         #endregion
@@ -73,7 +198,8 @@ Console.WriteLine(readText);  // Output the content
         [Test]
         public void parse_php_example_1()
         {
-            string path = Util.FromProjectDir("fixtures", "php", "example_1.php");
+            string path = Util.FromProjectDir(
+                "fixtures", "php", "example_1.php");
 
             Util.ParseWithLangFile(TreeSitterBundle.Language.php, path);
 
@@ -97,7 +223,9 @@ Console.WriteLine(readText);  // Output the content
 
 </body>
 </html>
+
 ");
+            Assert.Pass();
         }
 
         #endregion

@@ -8,6 +8,8 @@ namespace TreeSitter.Bundle
         public enum Language
         {
             actionscript,
+            ada,
+            arduino,
             c,
             cpp,
             c_sharp,

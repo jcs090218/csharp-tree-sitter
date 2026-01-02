@@ -22,3 +22,10 @@
 	path = repos/actionscript
 	url = https://github.com/jcs090218/tree-sitter-actionscript
 	branch = master
+[submodule "repos/ada"]
+	path = repos/ada
+	url = https://github.com/briot/tree-sitter-ada
+	branch = master
+[submodule "repos/arduino"]
+	path = repos/arduino
+	url = https://github.com/tree-sitter-grammars/tree-sitter-arduino
