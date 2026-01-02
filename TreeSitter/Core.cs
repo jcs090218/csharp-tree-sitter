@@ -78,25 +78,13 @@ namespace TreeSitter
         /// </summary>
         private static string PrebuiltName()
         {
-            string host = HostName();
+            string host = Native.HostName();
 
             string ext = Native.ArchiveExt();
 
             string arch = Native.ArchName();
 
             return $"tree-sitter.{arch}-{host}.{ext}";
-        }
-
-        private static string HostName()
-        {
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                return "windows-msvc";
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-                return "macos-none";
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-                return "linux-gnu";
-
-            return "unknown";
         }
 
         /// <summary>

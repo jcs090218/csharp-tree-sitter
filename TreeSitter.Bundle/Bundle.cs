@@ -107,15 +107,18 @@ namespace TreeSitter.Bundle
 
             string url = PrebuiltUrl(version, lang);
 
-            // xxx.dll
             string filename = PrebuiltName(lang);
 
-            // The shared library file.
+            // The tar/zip file.
             string file = Path.Combine(binPath, filename);
 
             await Util.DownloadFileAsync(url, file);
 
-            return true;
+            bool result = Native.UnArchive(file, binPath);
+
+            File.Delete(file);
+
+            return result;
         }
 
         /// <summary>
@@ -129,21 +132,18 @@ namespace TreeSitter.Bundle
         /// <summary>
         /// Return the prebuilt bundle name.
         /// </summary>
-        private static string PrebuiltName(string lang)
+        private static string PrebuiltName(string _lang)
         {
-            return Native.DLibName(lang);
-        }
+            // XXX: The parameter `_lang` is not used, the 
+            // original design was to load only the used languages.
 
-        private static string HostName()
-        {
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                return "windows-msvc";
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-                return "macos-none";
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-                return "linux-gnu";
+            string host = Native.HostName();
 
-            return "unknown";
+            string ext = Native.ArchiveExt();
+
+            string arch = Native.ArchName();
+
+            return $"tree-sitter-bundle.{arch}-{host}.{ext}";
         }
     }
 }

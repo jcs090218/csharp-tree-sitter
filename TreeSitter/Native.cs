@@ -125,5 +125,20 @@ namespace TreeSitter
 
             throw new NotSupportedException($"Architecture '{arch}' is not supported.");
         }
+
+        /// <summary>
+        /// Return the build host name.
+        /// </summary>
+        public static string HostName()
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                return "windows-msvc";
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                return "macos-none";
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                return "linux-gnu";
+
+            return "unknown";
+        }
     }
 }
