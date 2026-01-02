@@ -27,7 +27,7 @@ concurrency:
 
 env:
    VERSION: 0.26.3
-   VS_OUT: Release  # `Release` or `Debug`
+   VS_OUT: Debug  # `Release` or `Debug`
    TS_PATH: core/tree-sitter
 
 jobs:
@@ -36,7 +36,7 @@ jobs:
 
     steps:
     - uses: jcs-actions/delete-tag-and-release@master
-      if: github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/main'
       continue-on-error: true
       with:
         delete_release: true
