@@ -126,7 +126,7 @@ jobs:
       - name: Archive dynamic link (Unix)
         if: runner.os != 'Windows'
         run: |
-          tar -cf tree-sitter.${{ matrix.target }}.tar ./output/lib/libtree-sitter.${{ matrix.ext }}
+          tar -cf tree-sitter.${{ matrix.target }}.tar -C ./output/lib libtree-sitter.${{ matrix.ext }}
 
       - name: Archive dynamic link (Windows)
         if: runner.os == 'Windows'
