@@ -12,14 +12,19 @@ This module provides C# bindings to the [Tree-sitter][] parsing library,
 which can enable c# developers be able to invoke the tree-sitter libraries
 through P/Invoke from their C# code.
 
-```console
-C:\Project> dotnet add package TreeSitter.Bundle
-```
+You can install it by downloading the latest `.nupkg` files from our [release](https://github.com/jcs090218/csharp-tree-sitter/releases) page.
+
+- `TreeSitter.0.26.3.nupkg`
+- `TreeSitter.Bundle.0.26.3.nupkg`
 
 ## 🏆 Features
 
 - C# bindings for the tree-sitter parsing library.
 - Prebuilt language bundle support Windows (`x64`), Linux (`x64`, `arm64`), and macOS (`x64`, `arm64`)
+
+## 💾 Quickstart
+
+WIP
 
 ## 🔨 Development
 
@@ -32,7 +37,7 @@ Remember to use the `--recursive` option with git clone.
 git clone https://github.com/jcs090218/csharp-tree-sitter.git --recursive
 ```
 
-#### Submodules
+#### Submodules Location
 
 The submodules are split into two main sections,
 
@@ -62,6 +67,10 @@ dotnet build csharp-tree-sitter.csproj
 ```
 
 ### Testing
+
+WIP.
+
+### Adding new grammars
 
 WIP.
 
