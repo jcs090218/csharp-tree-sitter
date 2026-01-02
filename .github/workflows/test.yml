@@ -2,7 +2,7 @@ name: Test
 
 on:
   workflow_run:
-    workflows: ["Build nupkg"]
+    workflows: ["Build Tree-sitter Bundle"]
     types:
       - completed
   workflow_dispatch:

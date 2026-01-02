@@ -23,9 +23,16 @@ You can install it by downloading the latest `.nupkg` files from our [release](h
 - C# bindings for the tree-sitter parsing library.
 - Prebuilt language bundle support Windows (`x64`), Linux (`x64`, `arm64`), and macOS (`x64`, `arm64`)
 
-## 💾 Quickstart
+## ⚡ Quickstart
 
-WIP
+```cs
+using var parser = new TSParser();
+
+TSLanguage tsLang = TreeSitterBundle.Load(lang);
+parser.set_language(tsLang);
+
+using var tree = parser.parse_string(null, "");
+```
 
 ## 🔨 Development
 
