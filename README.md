@@ -13,10 +13,16 @@ which can enable c# developers be able to invoke the tree-sitter libraries
 through P/Invoke from their C# code.
 
 ```console
-C:\Project> NuGet Install TreeSitter.Bundle
+C:\Project> dotnet add package TreeSitter.Bundle
 ```
 
-## Cloning
+## 🏆 Features
+
+
+
+## Development
+
+### Cloning
 
 This repo includes the needed tree-sitter repos as submodules.
 Remember to use the `--recursive` option with git clone.
@@ -25,7 +31,7 @@ Remember to use the `--recursive` option with git clone.
 git clone https://github.com/jcs090218/csharp-tree-sitter.git --recursive
 ```
 
-## Building
+### Building
 
 Requirements:
 
@@ -47,17 +53,13 @@ Then build the C# project:
 dotnet build csharp-tree-sitter.csproj
 ```
 
-## Testing
+### Testing
 
 WIP.
 
-## Contributing
+## 🔗 Alternatives
 
-TODO: Explain how other users and developers can contribute to make your code better.
-
-## Alternatives
-
-- [csharp-tree-sitter][tree-sitter/csharp-tree-sitter] (officia)
+- [csharp-tree-sitter][tree-sitter/csharp-tree-sitter] (official)
 - [dotnet-tree-sitter][]
 
 
