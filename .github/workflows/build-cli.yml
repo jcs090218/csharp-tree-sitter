@@ -46,14 +46,6 @@ jobs:
       - name: Build the project
         run: dotnet publish --configuration ${{ env.VS_OUT }} --runtime ${{ matrix.target }} --self-contained true
 
-      #- name: Add prebuilt shared library (macOS)
-      #  if: runner.os == 'macOS'
-      #  working-directory: ./TreeSitter.CLI/bin/${{ env.VS_OUT }}/${{ env.DOT_NET }}
-      #  run: |
-      #    curl -fsSL https://github.com/jcs090218/csharp-tree-sitter/releases/download/${{ env.VERSION }}/tree-sitter.aarch64-macos-none.tar -o lib.tar
-      #    tar -xvf lib.tar
-      #    rm lib.tar
-
       - name: Archive executable (Unix)
         if: runner.os != 'Windows'
         run: |
@@ -64,7 +56,7 @@ jobs:
         run: |
           Compress-Archive -Path ./TreeSitter.CLI/bin/${{ env.VS_OUT }}/${{ env.DOT_NET }}/${{ matrix.target }}/publish/*.* -DestinationPath cli.${{ matrix.target }}.zip
 
-      - name: Upload for prerelease (Unix)
+      - name: Upload for release (Unix)
         if: github.ref == 'refs/heads/main' && runner.os != 'Windows'
         uses: softprops/action-gh-release@v2.5.0
         with:
@@ -74,7 +66,7 @@ jobs:
           draft: false
           files: ./cli.${{ matrix.target }}.tar
 
-      - name: Upload for prerelease (Windows)
+      - name: Upload for release (Windows)
         if: github.ref == 'refs/heads/main' && runner.os == 'Windows'
         uses: softprops/action-gh-release@v2.5.0
         with:
