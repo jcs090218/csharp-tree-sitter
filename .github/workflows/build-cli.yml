@@ -1,21 +1,10 @@
 name: Build CLI
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - TreeSitter/**
-      - '**.yml'
-      - '**.json'
-      # ignore
-      - '!**/docs.yml'
-  pull_request:
-    branches:
-      - main
-    paths-ignore:
-      - '**/docs.yml'
-      - '**.md'
+  workflow_run:
+    workflows: ["Build Tree-sitter"]
+    types:
+      - completed
   workflow_dispatch:
 
 concurrency:
