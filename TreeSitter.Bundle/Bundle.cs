@@ -14,7 +14,10 @@ namespace TreeSitter.Bundle
             php_only,
         }
 
-        private static string LangName(Language lang)
+        /// <summary>
+        /// Convert the enum `Language` to shared binary's name.
+        /// </summary>
+        public static string LangName(Language lang)
         {
             switch (lang)
             {
