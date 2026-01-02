@@ -56,7 +56,7 @@ namespace TreeSitter.CLI
             process.StartInfo.Arguments = $"build -o {f_dlib}";
             process.StartInfo.WorkingDirectory = dir;
 
-            process.StartInfo.UseShellExecute = false;
+            process.StartInfo.UseShellExecute = true;
             process.StartInfo.RedirectStandardOutput = false;
             process.StartInfo.RedirectStandardError = false;
             process.StartInfo.CreateNoWindow = false;
