@@ -40,6 +40,14 @@ jobs:
       - name: Build the project
         run: dotnet build --configuration ${{ env.VS_OUT }}
 
+      - name: Add prebuilt shared library (macOS)
+        if: runner.os == 'macOS'
+        working-directory: ./TreeSitter.CLI/bin/${{ env.VS_OUT }}/${{ env.DOT_NET }}
+        run: |
+          curl -fsSL https://github.com/jcs090218/csharp-tree-sitter/releases/download/${{ env.VERSION }}/tree-sitter.aarch64-macos-none.tar -o lib.tar
+          tar -xvf lib.tar
+          rm lib.tar
+
       - name: Archive executable (Unix)
         if: runner.os != 'Windows'
         run: |
