@@ -27,7 +27,7 @@ git clone https://github.com/jcs090218/csharp-tree-sitter.git --recursive
 
 Requirements:
 
-- .NET 8
+- .NET 9
 
 We'll first need to build the dependencies, and then the C# project.
 

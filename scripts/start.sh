@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-DOT_NET=net8.0
+DOT_NET=net9.0
 
 export PATH="$PATH:./TreeSitter.CLI/bin/Debug/$DOT_NET"
 export PATH="$PATH:./TreeSitter.CLI/bin/Release/$DOT_NET"

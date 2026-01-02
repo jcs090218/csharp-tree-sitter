@@ -14,7 +14,7 @@ concurrency:
 env:
    VERSION: 0.26.3
    VS_OUT: Release  # `Release` or `Debug`
-   DOT_NET: net8.0
+   DOT_NET: net9.0
 
 jobs:
   ci:
