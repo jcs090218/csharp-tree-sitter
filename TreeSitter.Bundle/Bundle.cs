@@ -7,9 +7,10 @@ namespace TreeSitter.Bundle
         // The supported language for our prebuilt bundle.
         public enum Language
         {
-            c_sharp,
-            //c,
+            actionscript,
+            c,
             cpp,
+            c_sharp,
             php,
             php_only,
         }
