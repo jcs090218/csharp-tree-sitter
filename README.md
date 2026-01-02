@@ -8,15 +8,13 @@
 [![Build Tree-sitter Bundle](https://github.com/jcs090218/csharp-tree-sitter/actions/workflows/build-tree-sitter-bundle.yml/badge.svg)](https://github.com/jcs090218/csharp-tree-sitter/actions/workflows/build-tree-sitter-bundle.yml)
 [![Build CLI](https://github.com/jcs090218/csharp-tree-sitter/actions/workflows/build-cli.yml/badge.svg)](https://github.com/jcs090218/csharp-tree-sitter/actions/workflows/build-cli.yml)
 
-```console
-C:\Project> NuGet Install TreeSitter.Bundle
-```
-
-## Introduction
-
 This module provides C# bindings to the [Tree-sitter][] parsing library,
 which can enable c# developers be able to invoke the tree-sitter libraries
 through P/Invoke from their C# code.
+
+```console
+C:\Project> NuGet Install TreeSitter.Bundle
+```
 
 ## Cloning
 
