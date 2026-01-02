@@ -66,13 +66,13 @@ jobs:
 
       - name: Download ${{ env.CLI_EXE }} CLI
         run: |
-          curl -fsSL https://github.com/jcs090218/csharp-tree-sitter/releases/download/${{ env.VERSION }}/cli-${{ matrix.tar_os }}.${{ matrix.tar_ext }} -o cli-${{ matrix.tar_os }}.${{ matrix.tar_ext }}
+          curl -fsSL https://github.com/jcs090218/csharp-tree-sitter/releases/download/${{ env.VERSION }}/cli.${{ matrix.tar_os }}.${{ matrix.tar_ext }} -o cli.${{ matrix.tar_os }}.${{ matrix.tar_ext }}
 
       - name: Setup ${{ env.CLI_EXE }} CLI (Unix)
         if: runner.os != 'Windows'
         run: |
           mkdir -p "$RUNNER_TEMP/${{ env.CLI_EXE }}"
-          tar -xvf cli-${{ matrix.tar_os }}.${{ matrix.tar_ext }} -C "$RUNNER_TEMP/${{ env.CLI_EXE }}"
+          tar -xvf cli.${{ matrix.tar_os }}.${{ matrix.tar_ext }} -C "$RUNNER_TEMP/${{ env.CLI_EXE }}"
           chmod -R 777 "$RUNNER_TEMP/${{ env.CLI_EXE }}"
           echo "$RUNNER_TEMP/${{ env.CLI_EXE }}" >> $GITHUB_PATH
 
@@ -81,7 +81,7 @@ jobs:
         run: |
           $dest = Join-Path $env:RUNNER_TEMP "${{ env.CLI_EXE }}"
           New-Item -ItemType Directory -Force -Path $dest | Out-Null
-          Expand-Archive -Path "cli-${{ matrix.tar_os }}.${{ matrix.tar_ext }}" -DestinationPath $dest -Force
+          Expand-Archive -Path "cli.${{ matrix.tar_os }}.${{ matrix.tar_ext }}" -DestinationPath $dest -Force
           "$env:RUNNER_TEMP\${{ env.CLI_EXE }}" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
       - if: runner.os != 'Windows'
