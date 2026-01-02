@@ -46,5 +46,4 @@ jobs:
           files: |
             ./TreeSitter/bin/${{ env.VS_OUT }}/TreeSitter.*.nupkg
             ./TreeSitter.Bundle/bin/${{ env.VS_OUT }}/TreeSitter.Bundle.*.nupkg
-            ./TreeSitter.CLI/bin/${{ env.VS_OUT }}/csharp-tree-sitter.*.nupkg
   
