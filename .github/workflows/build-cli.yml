@@ -46,23 +46,23 @@ jobs:
       - name: Build the project
         run: dotnet publish --configuration ${{ env.VS_OUT }} --runtime ${{ matrix.target }} --self-contained true
 
-      - name: Add prebuilt shared library (macOS)
-        if: runner.os == 'macOS'
-        working-directory: ./TreeSitter.CLI/bin/${{ env.VS_OUT }}/${{ env.DOT_NET }}
-        run: |
-          curl -fsSL https://github.com/jcs090218/csharp-tree-sitter/releases/download/${{ env.VERSION }}/tree-sitter.aarch64-macos-none.tar -o lib.tar
-          tar -xvf lib.tar
-          rm lib.tar
+      #- name: Add prebuilt shared library (macOS)
+      #  if: runner.os == 'macOS'
+      #  working-directory: ./TreeSitter.CLI/bin/${{ env.VS_OUT }}/${{ env.DOT_NET }}
+      #  run: |
+      #    curl -fsSL https://github.com/jcs090218/csharp-tree-sitter/releases/download/${{ env.VERSION }}/tree-sitter.aarch64-macos-none.tar -o lib.tar
+      #    tar -xvf lib.tar
+      #    rm lib.tar
 
       - name: Archive executable (Unix)
         if: runner.os != 'Windows'
         run: |
-          tar -cf cli-${{ matrix.target }}.tar -C ./TreeSitter.CLI/bin/${{ env.VS_OUT }}/${{ env.DOT_NET }} .
+          tar -cf cli.${{ matrix.target }}.tar -C ./TreeSitter.CLI/bin/${{ env.VS_OUT }}/${{ env.DOT_NET }}/${{ matrix.target }} .
 
       - name: Archive executable (Windows)
         if: runner.os == 'Windows'
         run: |
-          Compress-Archive -Path ./TreeSitter.CLI/bin/${{ env.VS_OUT }}/${{ env.DOT_NET }}/*.* -DestinationPath cli-${{ matrix.target }}.zip
+          Compress-Archive -Path ./TreeSitter.CLI/bin/${{ env.VS_OUT }}/${{ env.DOT_NET }}/${{ matrix.target }}/*.* -DestinationPath cli.${{ matrix.target }}.zip
 
       - name: Upload for prerelease (Unix)
         if: github.ref == 'refs/heads/main' && runner.os != 'Windows'
@@ -72,7 +72,7 @@ jobs:
           token: ${{ secrets.PAT }}
           prerelease: false
           draft: false
-          files: ./cli-${{ matrix.target }}.tar
+          files: ./cli.${{ matrix.target }}.tar
 
       - name: Upload for prerelease (Windows)
         if: github.ref == 'refs/heads/main' && runner.os == 'Windows'
@@ -82,5 +82,5 @@ jobs:
           token: ${{ secrets.PAT }}
           prerelease: false
           draft: false
-          files: ./cli-${{ matrix.target }}.zip
+          files: ./cli.${{ matrix.target }}.zip
   
