@@ -7,6 +7,7 @@
 [![Build Tree-sitter](https://github.com/jcs090218/csharp-tree-sitter/actions/workflows/build-tree-sitter.yml/badge.svg)](https://github.com/jcs090218/csharp-tree-sitter/actions/workflows/build-tree-sitter.yml)
 [![Build Tree-sitter Bundle](https://github.com/jcs090218/csharp-tree-sitter/actions/workflows/build-tree-sitter-bundle.yml/badge.svg)](https://github.com/jcs090218/csharp-tree-sitter/actions/workflows/build-tree-sitter-bundle.yml)
 [![Build CLI](https://github.com/jcs090218/csharp-tree-sitter/actions/workflows/build-cli.yml/badge.svg)](https://github.com/jcs090218/csharp-tree-sitter/actions/workflows/build-cli.yml)
+[![Build nupkg](https://github.com/jcs090218/csharp-tree-sitter/actions/workflows/build-nupkg.yml/badge.svg)](https://github.com/jcs090218/csharp-tree-sitter/actions/workflows/build-nupkg.yml)
 
 This module provides C# bindings to the [Tree-sitter][] parsing library,
 which can enable c# developers be able to invoke the tree-sitter libraries
@@ -18,7 +19,7 @@ C:\Project> dotnet add package TreeSitter.Bundle
 
 ## 🏆 Features
 
-
+WIP.
 
 ## Development
 
