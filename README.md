@@ -31,7 +31,16 @@ using var parser = new TSParser();
 TSLanguage tsLang = TreeSitterBundle.Load(lang);
 parser.set_language(tsLang);
 
-using var tree = parser.parse_string(null, "");
+using var tree = parser.parse_string(null, @"
+#include <iostream> // Include the input/output stream library
+
+int main() {
+    // std::cout prints to the console
+    // std::endl adds a newline character and flushes the stream
+    std::cout << ""Hello, World!"" << std::endl;
+
+    return 0; // Indicates that the program ended successfully
+}");
 ```
 
 ## 🔨 Development
