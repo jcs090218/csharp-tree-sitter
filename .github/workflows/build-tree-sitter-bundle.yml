@@ -88,7 +88,7 @@ jobs:
       - name: Archive grammars (Unix)
         if: runner.os != 'Windows'
         run: |
-          tar -cf tree-sitter-bundle.${{ matrix.target }}.${{ matrix.tar_ext }} -C ./bin --wildcards ./*.${{ matrix.ext }}
+          tar -cf tree-sitter-bundle.${{ matrix.target }}.${{ matrix.tar_ext }} -C ./bin --wildcards *.${{ matrix.ext }}
 
       - name: Archive grammars (Windows)
         if: runner.os == 'Windows'
