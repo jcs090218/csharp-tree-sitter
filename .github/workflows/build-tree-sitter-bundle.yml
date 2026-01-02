@@ -61,11 +61,6 @@ jobs:
       - name: Init submodules
         run: git submodule update --checkout
 
-      # For runtime
-      - uses: actions/setup-dotnet@v5
-        with:
-          dotnet-version: '9.0.x'
-
       - name: Install tree-sitter CLI
         run: npm install -g tree-sitter-cli@${{ env.VERSION }}
 
