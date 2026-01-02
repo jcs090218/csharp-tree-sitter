@@ -82,6 +82,10 @@ jobs:
         if: runner.os == 'Windows'
         uses: microsoft/setup-msbuild@v2
 
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13' 
+
       # Cross build
       - uses: mlugg/setup-zig@v2
         with:
@@ -91,6 +95,10 @@ jobs:
         if: runner.os != 'Windows'
         working-directory: ${{ env.TS_PATH }}
         run: zig build -Dbuild-shared=true -Dtarget=${{ matrix.target }} -p ../../output
+
+      - name: Workaround for CMake exporting symbols (Windows)
+        if: runner.os == 'Windows'
+        run: python ./scripts/fix_windows_cmake_exports.py
 
       - name: Build tree-sitter (Windows)
         if: runner.os == 'Windows'
