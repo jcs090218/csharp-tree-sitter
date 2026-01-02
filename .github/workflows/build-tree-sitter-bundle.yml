@@ -32,7 +32,7 @@ jobs:
             tar_ext: tar
             target: x86_64-linux-gnu
             ext: so
-          - os: ubuntu-24.04-arm64
+          - os: ubuntu-24.04-arm
             cli_target: linux-x64
             tar_ext: tar
             target: aarch64-linux-gnu
