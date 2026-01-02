@@ -90,6 +90,16 @@ jobs:
         run: |
           csharp-tree-sitter build-bundle -i ./repos -o ./bin
 
+      - name: Archive grammars (Unix)
+        if: runner.os != 'Windows'
+        run: |
+          tar -cf tree-sitter.${{ matrix.target }}.tar -C ./output/lib libtree-sitter.${{ matrix.ext }}
+
+      - name: Archive grammars (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          Compress-Archive -Path ./bin/${{ env.VS_OUT }}/tree-sitter.${{ matrix.ext }}/*.* -DestinationPath .${{ matrix.target }}.zip
+
       - name: Upload for release (Unix)
         if: github.ref == 'refs/heads/main' && runner.os != 'Windows'
         uses: softprops/action-gh-release@v2.5.0

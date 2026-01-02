@@ -53,11 +53,11 @@ jobs:
         include:
           - os: windows-2022
             bundle_os: windows
-            target: x86_64-windows-msvc
+            target: x64
             ext: dll
           - os: windows-2022
             bundle_os: windows
-            target: aarch64-windows-msvc
+            target: arm64
             ext: dll
           - os: ubuntu-24.04
             bundle_os: ubuntu
@@ -108,7 +108,7 @@ jobs:
         working-directory: ${{ env.TS_PATH }}
         run: |
           cmake -S . -B build/windows/
-          msbuild build/windows/tree-sitter.sln -t:rebuild -verbosity:diag -property:Configuration=${{ env.VS_OUT }}
+          msbuild build/windows/tree-sitter.sln -t:rebuild -verbosity:diag -property:Configuration=${{ env.VS_OUT }} /p:Platform=${{ matrix.target }}
 
       - name: Upload binary (Unix)
         uses: actions/upload-artifact@v6
