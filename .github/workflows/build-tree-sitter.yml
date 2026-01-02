@@ -136,7 +136,7 @@ jobs:
         run: |
           Compress-Archive -Path ./${{ env.TS_PATH }}/build/windows/${{ env.VS_OUT }}/tree-sitter.${{ matrix.ext }} -DestinationPath tree-sitter.${{ matrix.target }}.zip
 
-      - name: Upload for prerelease (Unix)
+      - name: Upload for release (Unix)
         if: github.ref == 'refs/heads/main' && runner.os != 'Windows'
         uses: softprops/action-gh-release@v2.5.0
         with:
@@ -146,7 +146,7 @@ jobs:
           draft: false
           files: ./tree-sitter.${{ matrix.target }}.tar
 
-      - name: Upload for prerelease (Windows)
+      - name: Upload for release (Windows)
         if: github.ref == 'refs/heads/main' && runner.os == 'Windows'
         uses: softprops/action-gh-release@v2.5.0
         with:
