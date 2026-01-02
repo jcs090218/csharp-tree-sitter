@@ -20,4 +20,9 @@
     <Using Include="NUnit.Framework" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TreeSitter\TreeSitter.csproj" />
+    <ProjectReference Include="..\TreeSitter.Bundle\TreeSitter.Bundle.csproj" />
+  </ItemGroup>
+
 </Project>
