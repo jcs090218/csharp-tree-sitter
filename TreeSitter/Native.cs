@@ -9,18 +9,48 @@ namespace TreeSitter
         /// <summary>
         /// Return the native dynamic link library.
         /// </summary>
-        /// <exception cref="PlatformNotSupportedException"></exception>
-        public static string DLibName(string baseName)
+        public static string DLibName(string name)
+        {
+            string prefix = DLibPrefix();
+            string ext = DLibExt();
+
+            return $"{prefix}{name}.{ext}";
+        }
+
+        /// <summary>
+        /// Return the dynamic link library's prefix 
+        /// based on the current OS.
+        /// </summary>
+        public static string DLibPrefix()
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                return $"{baseName}.dll";
+                return $"";
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-                return $"lib{baseName}.dylib";
+                return $"lib";
 
             // Linux and most Unix-like systems
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-                return $"lib{baseName}.so";
+                return $"lib";
+
+            throw new PlatformNotSupportedException();
+        }
+
+        /// <summary>
+        /// Return the dynamic link library's extension 
+        /// based on the current OS.
+        /// </summary>
+        public static string DLibExt()
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                return $"dll";
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                return $"dylib";
+
+            // Linux and most Unix-like systems
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                return $"so";
 
             throw new PlatformNotSupportedException();
         }

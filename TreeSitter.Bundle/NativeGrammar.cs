@@ -22,7 +22,7 @@ namespace TreeSitter.Bundle
                 NativeLibrary.GetExport(lib, symbol)
             );
 
-            return fn(); // const TSLanguage*
+            return fn();  // const TSLanguage*
         }
 
         /// <summary>

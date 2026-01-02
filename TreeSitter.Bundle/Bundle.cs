@@ -4,9 +4,35 @@ namespace TreeSitter.Bundle
 {
     public static class TreeSitterBundle
     {
+        // The supported language for our prebuilt bundle.
+        public enum Language
+        {
+            c_sharp,
+            //c,
+            cpp,
+            php,
+            php_only,
+        }
+
+        private static string LangName(Language lang)
+        {
+            switch (lang)
+            {
+                case Language.c_sharp: return "c-sharp";
+            }
+
+            return lang.ToString();
+        }
+
         /// <summary>
         /// Prepare the language.
         /// </summary>
+        public static TSLanguage Load(Language lang)
+        {
+            string name = LangName(lang);
+
+            return Load(name);
+        }
         public static TSLanguage Load(string lang)
         {
             bool success = EnsurePrebuilt(lang);
@@ -22,7 +48,7 @@ namespace TreeSitter.Bundle
         /// </summary>
         private static bool IsReady(string binPath, string lang)
         {
-            string libName = Native.DLibName($"tree-sitter-{lang}");
+            string libName = Native.DLibName($"{lang}");
 
             string dll = Path.Combine(binPath, libName);
 
@@ -32,15 +58,36 @@ namespace TreeSitter.Bundle
         /// <summary>
         /// Prepare the prebuilt Tree-sitter language bundle.
         /// </summary>
+        public static bool EnsurePrebuilt()
+        {
+            bool success = true;
+
+            List<Language> langs = Enum.GetValues(typeof(Language))
+                .Cast<Language>().ToList();
+
+            foreach (Language lang in langs)
+            {
+                // If one fails, it will return false.
+                if (!EnsurePrebuilt(lang))
+                    success = false;
+            }
+
+            return success;
+        }
+        public static bool EnsurePrebuilt(Language lang)
+        {
+            string name = LangName(lang);
+            return EnsurePrebuilt(name);
+        }
         public static bool EnsurePrebuilt(string lang)
         {
             return EnsurePrebuiltAsync(lang).GetAwaiter().GetResult();
         }
-        public static async Task<bool> EnsurePrebuiltAsync(string lang)
+        private static async Task<bool> EnsurePrebuiltAsync(string lang)
         {
             return await EnsurePrebuiltAsync(lang, TreeSitter.VERSION);
         }
-        public static async Task<bool> EnsurePrebuiltAsync(string lang, string version)
+        private static async Task<bool> EnsurePrebuiltAsync(string lang, string version)
         {
             string? processPath = Environment.ProcessPath
                 ?? throw new InvalidOperationException("ProcessPath is null");
@@ -50,7 +97,7 @@ namespace TreeSitter.Bundle
 
             return await EnsurePrebuiltAsync(lang, version, path);
         }
-        public static async Task<bool> EnsurePrebuiltAsync(string lang, string version, string? binPath)
+        private static async Task<bool> EnsurePrebuiltAsync(string lang, string version, string? binPath)
         {
             if (binPath == null)
                 return false;
@@ -58,21 +105,17 @@ namespace TreeSitter.Bundle
             if (IsReady(binPath, lang))
                 return true;
 
-
             string url = PrebuiltUrl(version, lang);
 
+            // xxx.dll
             string filename = PrebuiltName(lang);
 
-            // The tar/zip file.
+            // The shared library file.
             string file = Path.Combine(binPath, filename);
 
             await Util.DownloadFileAsync(url, file);
 
-            bool result = Native.UnArchive(file, binPath);
-
-            File.Delete(file);
-
-            return result;
+            return true;
         }
 
         /// <summary>
@@ -88,13 +131,7 @@ namespace TreeSitter.Bundle
         /// </summary>
         private static string PrebuiltName(string lang)
         {
-            string host = HostName();
-
-            string ext = Native.ArchiveExt();
-
-            string arch = Native.ArchName();
-
-            return $"tree-sitter-{lang}.{arch}-{host}.{ext}";
+            return Native.DLibName(lang);
         }
 
         private static string HostName()
