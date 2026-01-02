@@ -97,6 +97,7 @@ WIP.
 
 - [csharp-tree-sitter][tree-sitter/csharp-tree-sitter] (official)
 - [dotnet-tree-sitter][]
+- [tree-sitter-dotnet-bindings][]
 
 
 <!-- Links -->
@@ -105,3 +106,4 @@ WIP.
 
 [tree-sitter/csharp-tree-sitter]: https://github.com/tree-sitter/csharp-tree-sitter
 [dotnet-tree-sitter]: https://github.com/zabbius/dotnet-tree-sitter
+[tree-sitter-dotnet-bindings]: https://github.com/mariusgreuel/tree-sitter-dotnet-bindings
