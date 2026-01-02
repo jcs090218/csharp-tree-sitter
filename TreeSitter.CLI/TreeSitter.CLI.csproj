@@ -6,7 +6,7 @@
     <AssemblyName>csharp-tree-sitter</AssemblyName>
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>disable</Nullable>
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <Version>0.26.3</Version>
   </PropertyGroup>

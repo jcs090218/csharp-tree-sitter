@@ -24,11 +24,17 @@ jobs:
       matrix:
         include:
           - os: windows-2022
-            tar_os: windows
+            target: win-x64
+          - os: windows-2022
+            target: win-arm64
           - os: ubuntu-24.04
-            tar_os: linux
+            target: linux-x64
+          - os: ubuntu-24.04
+            target: linux-arm64
+          - os: macos-15-intel
+            target: osx-x64
           - os: macos-15
-            tar_os: macos
+            target: osx-arm64
 
     steps:
       - uses: actions/checkout@v6
@@ -38,7 +44,7 @@ jobs:
           dotnet-version: '9.0.x'
 
       - name: Build the project
-        run: dotnet build --configuration ${{ env.VS_OUT }}
+        run: dotnet publish --configuration ${{ env.VS_OUT }} --runtime ${{ matrix.target }} --self-contained true
 
       - name: Add prebuilt shared library (macOS)
         if: runner.os == 'macOS'
@@ -51,12 +57,12 @@ jobs:
       - name: Archive executable (Unix)
         if: runner.os != 'Windows'
         run: |
-          tar -cf cli-${{ matrix.tar_os }}.tar -C ./TreeSitter.CLI/bin/${{ env.VS_OUT }}/${{ env.DOT_NET }} .
+          tar -cf cli-${{ matrix.target }}.tar -C ./TreeSitter.CLI/bin/${{ env.VS_OUT }}/${{ env.DOT_NET }} .
 
       - name: Archive executable (Windows)
         if: runner.os == 'Windows'
         run: |
-          Compress-Archive -Path ./TreeSitter.CLI/bin/${{ env.VS_OUT }}/${{ env.DOT_NET }}/*.* -DestinationPath cli-${{ matrix.tar_os }}.zip
+          Compress-Archive -Path ./TreeSitter.CLI/bin/${{ env.VS_OUT }}/${{ env.DOT_NET }}/*.* -DestinationPath cli-${{ matrix.target }}.zip
 
       - name: Upload for prerelease (Unix)
         if: github.ref == 'refs/heads/main' && runner.os != 'Windows'
@@ -66,7 +72,7 @@ jobs:
           token: ${{ secrets.PAT }}
           prerelease: false
           draft: false
-          files: ./cli-${{ matrix.tar_os }}.tar
+          files: ./cli-${{ matrix.target }}.tar
 
       - name: Upload for prerelease (Windows)
         if: github.ref == 'refs/heads/main' && runner.os == 'Windows'
@@ -76,5 +82,5 @@ jobs:
           token: ${{ secrets.PAT }}
           prerelease: false
           draft: false
-          files: ./cli-${{ matrix.tar_os }}.zip
+          files: ./cli-${{ matrix.target }}.zip
   
