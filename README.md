@@ -55,7 +55,15 @@ WIP.
 
 TODO: Explain how other users and developers can contribute to make your code better.
 
+## Alternatives
+
+- [csharp-tree-sitter][tree-sitter/csharp-tree-sitter] (officia)
+- [dotnet-tree-sitter][]
+
 
 <!-- Links -->
 
 [tree-sitter]: https://github.com/tree-sitter/tree-sitter
+
+[tree-sitter/csharp-tree-sitter]: https://github.com/tree-sitter/csharp-tree-sitter
+[dotnet-tree-sitter]: https://github.com/zabbius/dotnet-tree-sitter

@@ -27,11 +27,6 @@ jobs:
             tar_ext: zip
             target: x86_64-windows-msvc
             ext: dll
-          - os: windows-2022
-            cli_target: win-x64
-            tar_ext: zip
-            target: aarch64-windows-msvc
-            ext: dll
           - os: ubuntu-24.04
             cli_target: linux-x64
             tar_ext: tar
@@ -93,7 +88,7 @@ jobs:
       - name: Archive grammars (Unix)
         if: runner.os != 'Windows'
         run: |
-          tar -cf tree-sitter-bundle.${{ matrix.target }}.${{ matrix.tar_ext }} -C ./bin *.${{ matrix.ext }}
+          tar -cf tree-sitter-bundle.${{ matrix.target }}.${{ matrix.tar_ext }} -C ./bin --wildcards *.${{ matrix.ext }}
 
       - name: Archive grammars (Windows)
         if: runner.os == 'Windows'
