@@ -53,7 +53,7 @@ jobs:
         include:
           - os: windows-2022
             bundle_os: windows
-            target: windows-msvc
+            target: x86_64-windows-msvc
             ext: dll
           - os: ubuntu-24.04
             bundle_os: ubuntu
