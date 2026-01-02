@@ -23,32 +23,32 @@ jobs:
       matrix:
         include:
           - os: windows-2022
-            tar_os: windows
+            cli_target: win-x64
             tar_ext: zip
             target: x86_64-windows-msvc
             ext: dll
           - os: windows-2022
-            tar_os: windows
+            cli_target: win-x64
             tar_ext: zip
             target: aarch64-windows-msvc
             ext: dll
           - os: ubuntu-24.04
-            tar_os: linux
+            cli_target: linux-x64
             tar_ext: tar
             target: x86_64-linux-gnu
             ext: so
           - os: ubuntu-24.04
-            tar_os: linux
+            cli_target: linux-x64
             tar_ext: tar
             target: aarch64-linux-gnu
             ext: so
-          - os: macos-15
-            tar_os: macos
+          - os: macos-15-intel
+            cli_target: osx-x64
             tar_ext: tar
             target: x86_64-macos-none
             ext: dylib
           - os: macos-15
-            tar_os: macos
+            cli_target: osx-arm64
             tar_ext: tar
             target: aarch64-macos-none
             ext: dylib
@@ -66,13 +66,13 @@ jobs:
 
       - name: Download ${{ env.CLI_EXE }} CLI
         run: |
-          curl -fsSL https://github.com/jcs090218/csharp-tree-sitter/releases/download/${{ env.VERSION }}/cli.${{ matrix.tar_os }}.${{ matrix.tar_ext }} -o cli.${{ matrix.tar_os }}.${{ matrix.tar_ext }}
+          curl -fsSL https://github.com/jcs090218/csharp-tree-sitter/releases/download/${{ env.VERSION }}/cli.${{ matrix.cli_target }}.${{ matrix.tar_ext }} -o cli.${{ matrix.cli_target }}.${{ matrix.tar_ext }}
 
       - name: Setup ${{ env.CLI_EXE }} CLI (Unix)
         if: runner.os != 'Windows'
         run: |
           mkdir -p "$RUNNER_TEMP/${{ env.CLI_EXE }}"
-          tar -xvf cli.${{ matrix.tar_os }}.${{ matrix.tar_ext }} -C "$RUNNER_TEMP/${{ env.CLI_EXE }}"
+          tar -xvf cli.${{ matrix.cli_target }}.${{ matrix.tar_ext }} -C "$RUNNER_TEMP/${{ env.CLI_EXE }}"
           chmod -R 777 "$RUNNER_TEMP/${{ env.CLI_EXE }}"
           echo "$RUNNER_TEMP/${{ env.CLI_EXE }}" >> $GITHUB_PATH
 
@@ -81,7 +81,7 @@ jobs:
         run: |
           $dest = Join-Path $env:RUNNER_TEMP "${{ env.CLI_EXE }}"
           New-Item -ItemType Directory -Force -Path $dest | Out-Null
-          Expand-Archive -Path "cli.${{ matrix.tar_os }}.${{ matrix.tar_ext }}" -DestinationPath $dest -Force
+          Expand-Archive -Path "cli.${{ matrix.cli_target }}.${{ matrix.tar_ext }}" -DestinationPath $dest -Force
           "$env:RUNNER_TEMP\${{ env.CLI_EXE }}" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
       - if: runner.os != 'Windows'
