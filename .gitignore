@@ -14,3 +14,7 @@ output/
 *.lib
 *.exp
 *.dll
+
+# OS metadata
+.DS_Store
+Thumbs.db
