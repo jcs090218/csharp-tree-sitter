@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeSitter", "TreeSitter\Tr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeSitter.Bundle", "TreeSitter.Bundle\TreeSitter.Bundle.csproj", "{E2055BA2-546D-4307-A514-B35B651B73C6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeSitter.Test", "TreeSitter.Test\TreeSitter.Test.csproj", "{8B8FBF27-7CC2-40AA-A3E9-D4610835AE5D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,18 @@ Global
 		{E2055BA2-546D-4307-A514-B35B651B73C6}.Release|x64.Build.0 = Release|Any CPU
 		{E2055BA2-546D-4307-A514-B35B651B73C6}.Release|x86.ActiveCfg = Release|Any CPU
 		{E2055BA2-546D-4307-A514-B35B651B73C6}.Release|x86.Build.0 = Release|Any CPU
+		{8B8FBF27-7CC2-40AA-A3E9-D4610835AE5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B8FBF27-7CC2-40AA-A3E9-D4610835AE5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B8FBF27-7CC2-40AA-A3E9-D4610835AE5D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8B8FBF27-7CC2-40AA-A3E9-D4610835AE5D}.Debug|x64.Build.0 = Debug|Any CPU
+		{8B8FBF27-7CC2-40AA-A3E9-D4610835AE5D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8B8FBF27-7CC2-40AA-A3E9-D4610835AE5D}.Debug|x86.Build.0 = Debug|Any CPU
+		{8B8FBF27-7CC2-40AA-A3E9-D4610835AE5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B8FBF27-7CC2-40AA-A3E9-D4610835AE5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B8FBF27-7CC2-40AA-A3E9-D4610835AE5D}.Release|x64.ActiveCfg = Release|Any CPU
+		{8B8FBF27-7CC2-40AA-A3E9-D4610835AE5D}.Release|x64.Build.0 = Release|Any CPU
+		{8B8FBF27-7CC2-40AA-A3E9-D4610835AE5D}.Release|x86.ActiveCfg = Release|Any CPU
+		{8B8FBF27-7CC2-40AA-A3E9-D4610835AE5D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
