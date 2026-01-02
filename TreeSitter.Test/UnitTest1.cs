@@ -29,9 +29,6 @@ namespace TreeSitter.Test
         [Test]
         public void parse_actionscript_example_1()
         {
-            // Ensure the core shared library is presented.
-            TreeSitter.EnsurePrebuilt();
-
             string path = Util.FromProjectDir(
                 "fixtures", "actionscript", "example_1.as");
 
