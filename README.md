@@ -19,9 +19,10 @@ C:\Project> dotnet add package TreeSitter.Bundle
 
 ## 🏆 Features
 
-WIP.
+- C# bindings for the tree-sitter parsing library.
+- Prebuilt language bundle support Windows (`x64`), Linux (`x64`, `arm64`), and macOS (`x64`, `arm64`)
 
-## Development
+## 🔨 Development
 
 ### Cloning
 
@@ -31,6 +32,13 @@ Remember to use the `--recursive` option with git clone.
 ```console
 git clone https://github.com/jcs090218/csharp-tree-sitter.git --recursive
 ```
+
+#### Submodules
+
+The submodules are split into two main sections,
+
+- `core` - Main [tree-sitter][] library.
+- `repos` - For language bundle.
 
 ### Building
 
