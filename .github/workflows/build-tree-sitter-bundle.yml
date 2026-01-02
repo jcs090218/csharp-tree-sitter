@@ -84,6 +84,9 @@ jobs:
           Expand-Archive -Path "cli-${{ matrix.tar_os }}.${{ matrix.tar_ext }}" -DestinationPath $dest -Force
           "$env:RUNNER_TEMP\${{ env.CLI_EXE }}" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
+      - if: runner.os != 'Windows'
+        run: ls "$RUNNER_TEMP/${{ env.CLI_EXE }}"
+
       - run: csharp-tree-sitter --version
 
       - run: |
