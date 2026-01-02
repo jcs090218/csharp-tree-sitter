@@ -55,10 +55,6 @@ jobs:
             bundle_os: windows
             target: x64
             ext: dll
-          - os: windows-2022
-            bundle_os: windows
-            target: arm64
-            ext: dll
           - os: ubuntu-24.04
             bundle_os: ubuntu
             target: x86_64-linux-gnu
