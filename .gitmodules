@@ -176,3 +176,55 @@
 	path = repos/markdown
 	url = https://github.com/tree-sitter-grammars/tree-sitter-markdown
 	branch = split_parser
+[submodule "repos/nix"]
+	path = repos/nix
+	url = https://github.com/nix-community/tree-sitter-nix
+	branch = master
+[submodule "repos/org"]
+	path = repos/org
+	url = https://github.com/emiasims/tree-sitter-org
+	branch = main
+[submodule "repos/python"]
+	path = repos/python
+	url = https://github.com/tree-sitter/tree-sitter-python
+	branch = master
+[submodule "repos/racket"]
+	path = repos/racket
+	url = https://github.com/6cdh/tree-sitter-racket
+	branch = main
+[submodule "repos/ruby"]
+	path = repos/ruby
+	url = https://github.com/tree-sitter/tree-sitter-ruby
+	branch = master
+[submodule "repos/rust"]
+	path = repos/rust
+	url = https://github.com/tree-sitter/tree-sitter-rust
+	branch = master
+[submodule "repos/sql"]
+	path = repos/sql
+	url = https://github.com/DerekStride/tree-sitter-sql
+	branch = main
+[submodule "repos/swift"]
+	path = repos/swift
+	url = https://github.com/alex-pinkus/tree-sitter-swift
+	branch = main
+[submodule "repos/toml"]
+	path = repos/toml
+	url = https://github.com/tree-sitter-grammars/tree-sitter-toml
+	branch = master
+[submodule "repos/typescript"]
+	path = repos/typescript
+	url = https://github.com/tree-sitter/tree-sitter-typescript
+	branch = master
+[submodule "repos/xml"]
+	path = repos/xml
+	url = https://github.com/tree-sitter-grammars/tree-sitter-xml
+	branch = master
+[submodule "repos/yaml"]
+	path = repos/yaml
+	url = https://github.com/tree-sitter-grammars/tree-sitter-yaml
+	branch = master
+[submodule "repos/zig"]
+	path = repos/zig
+	url = https://github.com/tree-sitter-grammars/tree-sitter-zig
+	branch = master

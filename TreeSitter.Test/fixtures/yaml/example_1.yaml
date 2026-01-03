@@ -1,0 +1,16 @@
+---
+# Employee records using a list of dictionaries
+employees:
+  - name: John
+    age: 35
+    role: Developer
+  - name: Sarah
+    age: 29
+    role: Designer
+
+# A dictionary with nested locations
+company:
+  name: TechCorp
+  location:
+    city: San Francisco
+    country: USA

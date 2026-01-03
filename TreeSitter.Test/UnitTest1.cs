@@ -1596,6 +1596,76 @@ Tables are an extended syntax feature and are great for organizing data.
 
         #endregion
 
+        #region Nix
+
+        [Test]
+        public void parse_nix_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "nix", "example_1.nix");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.nix, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_nix_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.nix, @"
+rec {
+  x = ""foo"";
+  y = x + ""bar""; # y can refer to x
+}
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region Org
+
+        [Test]
+        public void parse_org_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "org", "example_1.org");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.org, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_org_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.org, @"
+#+TITLE: My Org Document Example
+
+* A Top-Level Heading
+  This is a paragraph with *bold*, /italic/, _underline_, and =verbatim= text [1].
+
+** A Sub-Heading
+   - A list item
+   - Another list item
+
+*** A Sub-Sub-Heading
+
+:DRAWER-NAME:
+This text is inside a drawer.
+:END:
+
+<<TAGS>>
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
         #region PHP
 
         [Test]
@@ -1628,6 +1698,408 @@ Tables are an extended syntax feature and are great for organizing data.
 </html>
 
 ");
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region Python
+
+        [Test]
+        public void parse_python_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "python", "example_1.py");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.python, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_python_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.python, @"
+# Variables can be integers, floats, strings, etc.
+x = 10         # integer
+y = ""Python""   # string
+z = 3.14       # float
+
+# Perform a simple calculation
+sum_result = x + 5
+print(f""The sum is: {sum_result}"") # Output: The sum is: 15
+print(f""The language is: {y}"")
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region Racket
+
+        [Test]
+        public void parse_racket_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "racket", "example_1.rkt");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.racket, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_racket_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.racket, @"
+#lang racket
+
+(define (fib n)
+  (cond
+    [(= n 0) 0]
+    [(= n 1) 1]
+    [else (+ (fib (- n 1)) (fib (- n 2)))]))
+
+(fib 30) ; Evaluates to 832040
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region Ruby
+
+        [Test]
+        public void parse_ruby_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "ruby", "example_1.rb");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.ruby, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_ruby_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.ruby, @"
+age = 15
+
+if age >= 18
+  puts ""You are an adult.""
+elsif age >= 12
+  puts ""You are a teenager.""
+else
+  puts ""You are a child.""
+end
+# Output: You are a teenager.
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+
+        #region Ruby
+
+        [Test]
+        public void parse_rust_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "rust", "example_1.rs");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.rust, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_rust_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.rust, @"
+fn main() {
+    // This variable is immutable by default.
+    let foo = 10;
+    println!(""The value of foo is {foo}"");
+
+    // To allow modification, use the 'mut' keyword.
+    let mut bar = 20;
+    println!(""The value of bar is {bar}"");
+    bar = 30;
+    println!(""The new value of bar is {bar}"");
+}
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region SQL
+
+        [Test]
+        public void parse_sql_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "sql", "example_1.sql");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.sql, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_sql_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.sql, @"
+CREATE TABLE Employees (
+    ID INT PRIMARY KEY,
+    Name VARCHAR(100),
+    Salary DECIMAL(10, 2),
+    Department VARCHAR(50)
+);
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region Swift
+
+        [Test]
+        public void parse_swift_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "swift", "example_1.swift");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.swift, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_swift_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.swift, @"
+// A simple function with no parameters or return value
+func sayHello() {
+    print(""Hello, Swift!"")
+}
+
+sayHello() // Calls the function
+
+// A function with parameters and a return value
+func greeting(for person: String) -> String {
+    return ""Hello, "" + person + ""!""
+}
+
+print(greeting(for: ""Dave"")) // Calls the function and prints the result
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region TOML
+
+        [Test]
+        public void parse_toml_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "toml", "example_1.toml");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.toml, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_toml_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.toml, @"
+# Nested tables use dotted keys in the header.
+[database]
+server = ""192.168.1.1""
+connection_max = 5000
+
+[servers.alpha]
+ip = ""10.0.0.1""
+dc = ""eqdc10""
+
+[servers.beta]
+ip = ""10.0.0.2""
+dc = ""eqdc10""
+
+# Arrays of tables use double square brackets.
+[[products]]
+name = ""Hammer""
+sku = 738594937
+
+[[products]]
+name = ""Nail""
+sku = 284758393
+color = ""gray""
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region TypeScript
+
+        [Test]
+        public void parse_typescript_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "typescript", "example_1.ts");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.typescript, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_typescript_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.typescript, @"
+// Function with typed parameters and return type
+const sum = (a: number, b: number): number => {
+  return a + b;
+};
+
+// Example usage
+console.log(sum(5, 10)); // Output: 15
+
+// Function with an optional parameter (using ?) and default value
+const buildName = (firstName: string, lastName?: string, middleName: string = ""Smith""): string => {
+    if (lastName) {
+        return firstName + "" "" + middleName + "" "" + lastName;
+    }
+    return firstName + "" "" + middleName;
+};
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region XML
+
+        [Test]
+        public void parse_xml_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "xml", "example_1.xml");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.xml, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_xml_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.xml, @"
+<?xml version=""1.0"" encoding=""UTF-8""?>
+<note>
+  <to>Tove</to>
+  <from>Jani</from>
+  <heading>Reminder</heading>
+  <body>Don't forget me this weekend!</body>
+</note>
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region YAML
+
+        [Test]
+        public void parse_yaml_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "yaml", "example_1.yaml");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.yaml, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_yaml_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.yaml, @"
+<?xml version=""1.0"" encoding=""UTF-8""?>
+<note>
+  <to>Tove</to>
+  <from>Jani</from>
+  <heading>Reminder</heading>
+  <body>Don't forget me this weekend!</body>
+</note>
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region Zig
+
+        [Test]
+        public void parse_zig_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "zig", "example_1.zig");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.zig, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_zig_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.zig, @"
+const std = @import(""std"");
+
+pub fn main() !void {
+    var i: usize = 1;
+    while (i <= 16) : (i += 1) { // The ':(i += 1)' is the while loop continuation expression
+        if (i % 15 == 0) {
+            std.log.info(""ZiggZagg"", .{});
+        } else if (i % 3 == 0) {
+            std.log.info(""Zigg"", .{});
+        } else if (i % 5 == 0) {
+            std.log.info(""Zagg"", .{});
+        } else {
+            // Using ""{d}"" format specifier for decimal integers
+            std.log.info(""{d}"", .{i});
+        }
+    }
+}
+
+");
+
             Assert.Pass();
         }
 

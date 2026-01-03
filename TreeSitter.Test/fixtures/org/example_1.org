@@ -1,0 +1,16 @@
+#+TITLE: My Org Document Example
+
+* A Top-Level Heading
+  This is a paragraph with *bold*, /italic/, _underline_, and =verbatim= text [1].
+
+** A Sub-Heading
+   - A list item
+   - Another list item
+
+*** A Sub-Sub-Heading
+
+:DRAWER-NAME:
+This text is inside a drawer.
+:END:
+
+<<TAGS>>

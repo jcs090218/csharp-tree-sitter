@@ -47,8 +47,21 @@ namespace TreeSitter.Bundle
             kotlin,
             make,
             markdown,
+            nix,
+            org,
             php,
             php_only,
+            python,
+            racket,
+            ruby,
+            rust,
+            sql,
+            swift,
+            toml,
+            typescript,
+            xml,
+            yaml,
+            zig,
         }
 
         /// <summary>

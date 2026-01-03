@@ -1,0 +1,24 @@
+"
+
+# Nested tables use dotted keys in the header.
+[database]
+server = "192.168.1.1"
+connection_max = 5000
+
+[servers.alpha]
+ip = "10.0.0.1"
+dc = "eqdc10"
+
+[servers.beta]
+ip = "10.0.0.2"
+dc = "eqdc10"
+
+# Arrays of tables use double square brackets.
+[[products]]
+name = "Hammer"
+sku = 738594937
+
+[[products]]
+name = "Nail"
+sku = 284758393
+color = "gray"
