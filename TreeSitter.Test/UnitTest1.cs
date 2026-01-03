@@ -901,6 +901,701 @@ start() ->
 
         #endregion
 
+        #region Fennel
+
+        [Test]
+        public void parse_fennel_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "fennel", "example_1.fnl");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.fennel, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_fennel_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.fennel, @"
+(fn fib [n]
+  (if (< n 2)
+      n
+      (+ (fib (- n 1)) (fib (- n 2)))))
+
+(print (fib 10)) ; Prints 55
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region F#
+
+        [Test]
+        public void parse_fsharp_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "fsharp", "example_1.fs");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.fsharp, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_fsharp_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.fsharp, @"
+// Define a new record type
+type ContactCard = { 
+    Name : string 
+    Phone : string 
+    Verified : bool 
+}
+
+// Instantiate a record
+let contact1 = { Name = ""Alf""; Phone = ""(206) 555-0157""; Verified = false }
+
+// Use ""copy-and-update"" to create a new record from an existing one
+let contact2 = { contact1 with Phone = ""(206) 555-0112""; Verified = true }
+
+// Function to process a record
+let showContactCard (c: ContactCard) = 
+    c.Name + "" Phone: "" + c.Phone + (if not c.Verified then "" (unverified)"" else """")
+
+printfn $""Alf's updated contact card: {showContactCard contact2}""
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region GDScript
+
+        [Test]
+        public void parse_gdscript_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "gdscript", "example_1.gd");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.gdscript, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_gdscript_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.gdscript, @"
+extends Sprite # Inherits from the Sprite class
+
+# Member variables declared at the top of the script have script-wide scope
+@export var speed := 400.0 # @export makes the variable visible and editable in the Godot Inspector
+
+func _ready():
+    # Called when the node enters the scene tree for the first time
+    print(""Player sprite is ready to move!"")
+    # Set the initial position to a specific location if desired
+    # position = Vector2(500, 500) 
+
+func _process(delta):
+    # Called every frame; 'delta' is the elapsed time since the previous frame
+    
+    # Move the sprite to the right by 'speed' pixels per second
+    position.x += speed * delta
+    
+    # If the sprite goes off-screen (e.g., past x=1200), reset its position
+    if position.x > 1200:
+        position.x = -100 # Start from the left side again
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region GLSL
+
+        [Test]
+        public void parse_glsl_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "glsl", "example_1.vert");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.glsl, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_glsl_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.glsl, @"
+// A very basic fragment shader
+void main() {
+    // gl_FragColor is a built-in output variable that holds the final color of the fragment.
+    // vec4 is a 4-component vector used to represent color (R, G, B, A).
+    // The values are floats ranging from 0.0 to 1.0.
+    gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0); // This sets the color to solid red.
+}
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region Go
+
+        [Test]
+        public void parse_go_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "go", "example_1.go");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.go, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_go_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.go, @"
+package main
+
+import ""fmt""
+import ""math/cmplx""
+
+func main() {
+    // Standard declaration
+    var i int = 1
+    // Short variable declaration (type inferred)
+    j := 2
+    
+    // Example of basic types
+    ToBe := false
+    MaxInt := uint64(1<<64 - 1)
+    z := cmplx.Sqrt(-5 + 12i)
+
+    fmt.Println(""i:"", i, ""j:"", j)
+    fmt.Printf(""Type: %T Value: %v\n"", ToBe, ToBe)
+    fmt.Printf(""Type: %T Value: %v\n"", MaxInt, MaxInt)
+    fmt.Printf(""Type: %T Value: %v\n"", z, z)
+}
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region Groovy
+
+        [Test]
+        public void parse_groovy_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "groovy", "example_1.groovy");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.groovy, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_groovy_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.groovy, @"
+def multiply = { x, y -> x * y } // A closure for multiplication
+def applyOperation(operation, a, b) {
+    return operation(a, b)
+}
+
+def result2 = applyOperation(multiply, 3, 4)
+println(""Multiplication: ${result2}"") // Output: Multiplication: 12
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region Haskell
+
+        [Test]
+        public void parse_haskell_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "haskell", "example_1.hs");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.haskell, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_haskell_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.haskell, @"
+main :: IO ()
+main = do
+    putStrLn ""What is your name?""
+    name <- getLine
+    putStrLn (""Hello, "" ++ name ++ ""!"")
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region Haxe
+
+        [Test]
+        public void parse_haxe_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "haxe", "example_1.hx");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.haxe, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_haxe_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.haxe, @"
+/**
+ * Multi-line comments for documentation.
+ */
+class Main {
+    // Single line comment
+    static public function main():Void {
+        trace(""Hello World"");
+    }
+}
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region HLSL
+
+        [Test]
+        public void parse_hlsl_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "hlsl", "example_1.vert");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.hlsl, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_hlsl_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.hlsl, @"
+// declaration of functions
+#pragma ps pixelShader
+#pragma vs vertexShader
+
+// data structure : before vertex shader (mesh info)
+struct vertexInfo
+{
+    float3 position : POSITION;
+    float2 uv: TEXCOORD0;
+    float3 color : COLOR;
+}
+
+// uniforms : external parameters
+sampler2D MyTexture;
+float2 UVTile;
+matrix4x4 worldViewProjection;
+
+// vertex shader function
+v2p vertexShader(vertexInfo input)
+{
+    v2p output;
+    output.position = mul(worldViewProjection, float4(input.position,1.0));
+    output.uv = input.uv * UVTile;
+    output.color = input.color;
+    return output;
+}
+
+// pixel shader function
+float4 pixelShader(v2p input) : SV_TARGET
+{
+    float4 color = tex2D(MyTexture, input.uv);
+    return color * input.color;
+}
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region HTML
+
+        [Test]
+        public void parse_html_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "html", "example_1.html");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.html, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_html_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.html, @"
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page Title</title>
+</head>
+<body>
+
+    <h1>This is a Heading</h1>
+    <p>This is a paragraph.</p>
+    <a href=""https://www.example.com"">This is a link</a>
+
+</body>
+</html>
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region Java
+
+        [Test]
+        public void parse_java_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "java", "example_1.java");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.java, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_java_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.java, @"
+public class Main {
+    public static void main(String[] args) {
+        System.out.println(""Hello World"");
+    }
+}
+// Output:
+// Hello World
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region JavaScript
+
+        [Test]
+        public void parse_javascript_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "javascript", "example_1.js");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.javascript, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_javascript_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.javascript, @"
+// Define a function that takes a name as an argument
+function greetUser(name) {
+  return ""Hello, "" + name + ""!"";
+}
+
+// Call the function and store the result
+let message = greetUser(""Alice"");
+
+// Log the result
+console.log(message); // Hello, Alice!
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region JSON
+
+        [Test]
+        public void parse_json_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "json", "example_1.json");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.json, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_json_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.json, @"
+{
+  ""firstName"": ""John"",
+  ""lastName"": ""Doe"",
+  ""age"": 30,
+  ""isStudent"": false,
+  ""courses"": [""Math"", ""Science""],
+  ""address"": {
+    ""street"": ""123 Main St"",
+    ""city"": ""Anytown""
+  }
+}
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region Julia
+
+        [Test]
+        public void parse_julia_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "julia", "example_1.jl");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.julia, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_julia_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.julia, @"
+A = [1 2; 3 4] # A 2x2 matrix
+# Output:
+# 2×2 Matrix{Int64}:
+#  1  2
+#  3  4
+
+println(""Maximum value:"", maximum(A))       #> Maximum value: 4
+println(""Maximum of abs2 element-wise:"", maximum(abs2, A)) # maximum of the square of each element
+
+x = [1, 2, 3, 4]
+y = sin.(x) # apply sin function to each element using the dot operator
+println(y)
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region Kotlin
+
+        [Test]
+        public void parse_kotlin_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "kotlin", "example_1.kt");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.kotlin, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_kotlin_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.kotlin, @"
+// A function that returns the maximum of two integers
+fun maxOf(a: Int, b: Int): Int { // Specifies Int parameters and Int return type
+    if (a > b) {
+        return a
+    } else {
+        return b
+    }
+}
+
+// A more concise way to write the same function using expression syntax
+fun maxOfConcise(a: Int, b: Int) = if (a > b) a else b
+
+fun main() {
+    println(""Max of 0 and 42 is ${maxOf(0, 42)}"")
+    println(""Max of 5 and 10 is ${maxOfConcise(5, 10)}"")
+}
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region Makefile
+
+        [Test]
+        public void parse_make_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "make", "Makefile");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.make, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_make_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.make, @"
+# Variables for compiler and flags
+CC = gcc
+CFLAGS = -Wall -g
+TARGET = hello
+SOURCE = hello.c
+
+# Default target: builds the 'hello' executable
+all: $(TARGET)
+
+# Rule to build the executable from the source file
+$(TARGET): $(SOURCE)
+	$(CC) $(CFLAGS) $(SOURCE) -o $(TARGET)
+
+# Rule to clean up generated files
+clean:
+	rm -f $(TARGET)
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region Markdown
+
+        [Test]
+        public void parse_markdown_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "markdown", "example_1.md");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.markdown, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_markdown_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.markdown, @"
+# Welcome to Markdown!
+
+Markdown is a lightweight markup language for creating formatted text using a plain-text editor.
+
+## Basic Formatting
+
+You can easily add **bold** text, *italic* text, or even ***combined*** emphasis. Need to strike through something? Use ~~two tildes~~.
+
+You can also use `inline code` for quick snippets.
+
+---
+
+## Lists
+
+### Unordered List:
+*   First item
+*   Second item
+    *   You can nest lists by indenting.
+*   Third item
+
+### Ordered List:
+1.  First ordered item
+2.  Second item
+3.  Third item
+    1.  Nested ordered list.
+    2.  Another nested item.
+
+---
+
+## Links and Images
+
+Here is an [example link](https://www.example.com) to a website.
+
+Here is an image (note: actual rendering depends on the image URL and platform support):
+![Alt text for the image](https://example.com/image.jpg ""Optional title"")
+
+---
+
+## Blockquotes
+
+> Markdown uses email-style characters for blockquoting.
+> > You can even nest blockquotes.
+
+---
+
+## Code Blocks
+
+Use three backticks (\`\`\`) to create fenced code blocks for multiple lines of code, with optional syntax highlighting:
+
+\`\`\`python
+def hello_world():
+    print(""Hello, world!"")
+\`\`\`
+
+---
+
+## Tables
+
+Tables are an extended syntax feature and are great for organizing data.
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
         #region PHP
 
         [Test]

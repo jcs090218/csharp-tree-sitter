@@ -101,3 +101,78 @@
 [submodule "repos/fennel"]
 	path = repos/fennel
 	url = https://github.com/alexmozaidze/tree-sitter-fennel
+	branch = main
+[submodule "repos/fish"]
+	path = repos/fish
+	url = https://github.com/ram02z/tree-sitter-fish
+	branch = master
+[submodule "repos/fsharp"]
+	path = repos/fsharp
+	url = https://github.com/ionide/tree-sitter-fsharp
+	branch = main
+[submodule "repos/gdscript"]
+	path = repos/gdscript
+	url = https://github.com/PrestonKnopp/tree-sitter-gdscript
+	branch = master
+
+[submodule "repos/glsl"]
+	path = repos/glsl
+	url = https://github.com/tree-sitter-grammars/tree-sitter-glsl
+	branch = master
+[submodule "repos/go"]
+	path = repos/go
+	url = https://github.com/tree-sitter/tree-sitter-go
+	branch = master
+[submodule "repos/groovy"]
+	path = repos/groovy
+	url = https://github.com/Decodetalkers/tree-sitter-groovy
+	branch = master
+[submodule "repos/haskell"]
+	path = repos/haskell
+	url = https://github.com/tree-sitter/tree-sitter-haskell
+	branch = master
+
+[submodule "repos/haxe"]
+	path = repos/haxe
+	url = https://github.com/vantreeseba/tree-sitter-haxe
+	branch = main
+[submodule "repos/hlsl"]
+	path = repos/hlsl
+	url = https://github.com/tree-sitter-grammars/tree-sitter-hlsl
+	branch = master
+[submodule "repos/html"]
+	path = repos/html
+	url = https://github.com/tree-sitter/tree-sitter-html
+	branch = master
+[submodule "repos/java"]
+	path = repos/java
+	url = https://github.com/tree-sitter/tree-sitter-java
+	branch = master
+[submodule "repos/javascript"]
+	path = repos/javascript
+	url = https://github.com/tree-sitter/tree-sitter-javascript
+	branch = master
+[submodule "repos/json"]
+	path = repos/json
+	url = https://github.com/tree-sitter/tree-sitter-json
+	branch = master
+[submodule "repos/julia"]
+	path = repos/julia
+	url = https://github.com/tree-sitter/tree-sitter-julia
+	branch = master
+[submodule "repos/kotlin"]
+	path = repos/kotlin
+	url = https://github.com/fwcd/tree-sitter-kotlin
+	branch = main
+[submodule "repos/lua"]
+	path = repos/lua
+	url = https://github.com/MunifTanjim/tree-sitter-lua
+	branch = main
+[submodule "repos/make"]
+	path = repos/make
+	url = https://github.com/alemuller/tree-sitter-make
+	branch = main
+[submodule "repos/markdown"]
+	path = repos/markdown
+	url = https://github.com/tree-sitter-grammars/tree-sitter-markdown
+	branch = split_parser

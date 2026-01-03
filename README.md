@@ -23,6 +23,7 @@ You can install it by downloading the latest `.nupkg` files from our [release](h
 - C# bindings for the tree-sitter parsing library.
 - Prebuilt language bundle support Windows (`x64`), Linux (`x64`, `arm64`), and macOS (`x64`, `arm64`)
 - Lazy loading for shared libraries
+- No module definition file (`.def`) required
 
 ## ⚡ Quickstart
 
