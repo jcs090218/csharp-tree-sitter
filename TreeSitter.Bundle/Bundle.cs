@@ -12,6 +12,8 @@ namespace TreeSitter.Bundle
             arduino,
             asm,
             bash,
+            beancount,
+            bibtex,
             c,
             cpp,
             c_sharp,

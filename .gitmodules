@@ -38,3 +38,11 @@
 	path = repos/bash
 	url = https://github.com/tree-sitter/tree-sitter-bash
 	branch = master
+[submodule "repos/beancount"]
+	path = repos/beancount
+	url = https://github.com/polarmutex/tree-sitter-beancount
+	branch = master
+[submodule "repos/bibtex"]
+	path = repos/bibtex
+	url = https://github.com/latex-lsp/tree-sitter-bibtex
+	branch = master

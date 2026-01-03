@@ -219,6 +219,91 @@ echo ""Hello, $USER_NAME! Welcome.""
 
         #endregion
 
+        #region Beancount
+
+        [Test]
+        public void parse_beancount_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "beancount", "example_1.beancount");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.beancount, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_beancount_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.beancount, @"
+;;; A basic example file with some example accounts and transactions.
+
+option ""title"" ""Simple Example Ledger""
+option ""operating_currency"" ""USD""
+
+1980-01-01 open Assets:US:BofA:Checking USD
+1980-01-01 open Expenses:Food:Groceries USD
+1980-01-01 open Income:Salary:Google USD
+1980-01-01 open Equity:Opening-Balances USD
+
+;; You must declare accounts before using them in a transaction.
+
+2024-01-01 * ""Initial Balance""
+  Assets:US:BofA:Checking 1000.00 USD
+  Equity:Opening-Balances -1000.00 USD
+  
+2024-01-02 * ""Whole Foods"" ""Groceries for the week""
+  Expenses:Food:Groceries 50.00 USD
+  Assets:US:BofA:Checking -50.00 USD
+
+2024-01-05 * ""Monthly Paycheck""
+  Assets:US:BofA:Checking 2000.00 USD
+  Income:Salary:Google -2000.00 USD
+
+;; You can also assert a known balance at a specific date.
+2024-01-05 balance Assets:US:BofA:Checking 2950.00 USD
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region BibTex
+
+        [Test]
+        public void parse_bibtex_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "bibtex", "example_1.tex");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.bibtex, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_bibtex_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.beancount, @"
+@article{cohen1963independence,
+  author  = {P. J. Cohen},
+  title   = {The independence of the continuum hypothesis},
+  journal = {Proceedings of the National Academy of Sciences},
+  year    = {1963},
+  volume  = {50},
+  number  = {6},
+  pages   = {1143--1148}
+}
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
         #region C++
 
         [Test]

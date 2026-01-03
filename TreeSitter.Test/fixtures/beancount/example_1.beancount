@@ -1,0 +1,26 @@
+;;; A basic example file with some example accounts and transactions.
+
+option "title" "Simple Example Ledger"
+option "operating_currency" "USD"
+
+1980-01-01 open Assets:US:BofA:Checking USD
+1980-01-01 open Expenses:Food:Groceries USD
+1980-01-01 open Income:Salary:Google USD
+1980-01-01 open Equity:Opening-Balances USD
+
+;; You must declare accounts before using them in a transaction.
+
+2024-01-01 * "Initial Balance"
+  Assets:US:BofA:Checking 1000.00 USD
+  Equity:Opening-Balances -1000.00 USD
+  
+2024-01-02 * "Whole Foods" "Groceries for the week"
+  Expenses:Food:Groceries 50.00 USD
+  Assets:US:BofA:Checking -50.00 USD
+
+2024-01-05 * "Monthly Paycheck"
+  Assets:US:BofA:Checking 2000.00 USD
+  Income:Salary:Google -2000.00 USD
+
+;; You can also assert a known balance at a specific date.
+2024-01-05 balance Assets:US:BofA:Checking 2950.00 USD
