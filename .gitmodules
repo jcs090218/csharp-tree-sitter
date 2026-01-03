@@ -46,3 +46,35 @@
 	path = repos/bibtex
 	url = https://github.com/latex-lsp/tree-sitter-bibtex
 	branch = master
+[submodule "repos/clojure"]
+	path = repos/clojure
+	url = https://github.com/sogaiu/tree-sitter-clojure
+	branch = master
+[submodule "repos/cmake"]
+	path = repos/cmake
+	url = https://github.com/uyha/tree-sitter-cmake
+	branch = master
+[submodule "repos/commonlisp"]
+	path = repos/commonlisp
+	url = https://github.com/tree-sitter-grammars/tree-sitter-commonlisp
+	branch = master
+[submodule "repos/css"]
+	path = repos/css
+	url = https://github.com/tree-sitter/tree-sitter-css
+	branch = master
+[submodule "repos/csv"]
+	path = repos/csv
+	url = https://github.com/tree-sitter-grammars/tree-sitter-csv
+	branch = master
+[submodule "repos/d"]
+	path = repos/d
+	url = https://github.com/gdamore/tree-sitter-d
+	branch = main
+[submodule "repos/dart"]
+	path = repos/dart
+	url = https://github.com/UserNobody14/tree-sitter-dart
+	branch = master
+[submodule "repos/dockerfile"]
+	path = repos/dockerfile
+	url = https://github.com/camdencheek/tree-sitter-dockerfile
+	branch = main

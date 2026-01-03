@@ -304,6 +304,37 @@ option ""operating_currency"" ""USD""
 
         #endregion
 
+        #region C
+
+        [Test]
+        public void parse_c_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "c", "example_1.c");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.c, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_c_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.c, @"
+#include <stdio.h>
+
+int main() {
+    printf(""Hello, World!"");
+    return 0;
+}
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
         #region C++
 
         [Test]
@@ -362,6 +393,289 @@ File.WriteAllText(""filename.txt"", writeText);  // Create a file and write the 
 
 string readText = File.ReadAllText(""filename.txt"");  // Read the contents of the file
 Console.WriteLine(readText);  // Output the content
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region Clojure
+
+        [Test]
+        public void parse_clojure_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "clojure", "example_1.clj");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.clojure, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_clojure_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.clojure, @"
+;; A list
+'(1 2 3 4)
+;; => (1 2 3 4)
+
+;; A vector (more common for general-purpose collections)
+[1 2 3 4]
+;; => [1 2 3 4]
+
+;; A map (hash map)
+(def person {:first ""Han"" :last ""Solo"" :occupation ""smuggler""})
+;; => #'user/person
+
+;; Accessing a value in a map (keywords can act as functions)
+(:first person)
+;; => ""Han""
+
+;; Using a function with a collection
+(map inc [1 2 3]) ; inc increments by 1
+;; => (2 3 4)
+
+;; Using the 'thread-first' macro to make code more readable
+(-> person :occupation count)
+;; is equivalent to: (count (:occupation person))
+;; => 8
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region CMake
+
+        [Test]
+        public void parse_cmake_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "cmake", "CMakeLists.txt");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.cmake, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_cmake_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.cmake, @"
+cmake_minimum_required(VERSION 3.10)
+# set the project name
+project(HelloWorld CXX)
+# add the executable
+add_executable(HelloWorld main.cpp)
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region Common Lisp
+
+        [Test]
+        public void parse_commonlisp_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "commonlisp", "example_1.lisp");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.commonlisp, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_commonlisp_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.commonlisp, @"
+(defun hello-world ()
+  ""Returns the string 'Hello, World!'.""
+  ""Hello, World!"")
+
+(hello-world) ;=> ""Hello, World!""
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region CSS
+
+        [Test]
+        public void parse_css_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "css", "example_1.css");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.css, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_css_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.css, @"
+selector {
+  property: value;
+  property: value;
+}
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region CSV
+
+        [Test]
+        public void parse_csv_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "csv", "example_1.csv");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.csv, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_csv_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.csv, @"
+firstName,lastName,email
+John,Doe,john.doe@example.com
+Jane,Smith,jane.smith@example.com
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region D
+
+        [Test]
+        public void parse_d_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "d", "example_1.d");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.d, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_d_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.d, @"
+import std.stdio; // Imports the standard I/O library
+
+void main()
+{
+    writeln(""Hello, World!""); // writeln prints a line to standard output
+}
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region Dart
+
+        [Test]
+        public void parse_dart_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "dart", "example_1.dart");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.dart, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_dart_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.dart, @"
+// Explicit type declaration
+String name = 'Voyager I';
+int year = 1977;
+double antennaDiameter = 3.7;
+bool isLaunched = true;
+
+// Type inference using 'var'
+var flybyObjects = ['Jupiter', 'Saturn', 'Uranus', 'Neptune']; // List<String>
+var image = { // Map<String, Object>
+  'tags': ['saturn'],
+  'url': '//path/to/saturn.jpg',
+};
+
+// Printing variables with string interpolation
+print('Name: $name');
+print('Year: $year');
+print('Flyby objects: $flybyObjects');
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region Dockerfile
+
+        [Test]
+        public void parse_dockerfile_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "dockerfile", "Dockerfile");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.dart, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_dockerfile_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.dockerfile, @"
+# Stage 1: Build the application
+FROM node:18-alpine as builder
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install && npm cache clean --force
+COPY . .
+RUN npm run build
+
+# Stage 2: Production stage using a lightweight web server
+FROM nginx:alpine
+
+# Copy the built files from the builder stage to the Nginx web server directory
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD [""nginx"", ""-g"", ""daemon off;""]
 
 ");
 
