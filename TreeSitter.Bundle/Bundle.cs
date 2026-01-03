@@ -125,8 +125,6 @@ namespace TreeSitter.Bundle
             if (binPath == null)
                 return false;
 
-            Console.Out.WriteLine($"{lang}: {IsReady(binPath, lang)}");
-
             if (IsReady(binPath, lang))
                 return true;
 
