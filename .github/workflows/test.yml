@@ -32,6 +32,5 @@ jobs:
           dotnet-version: '9.0.x'
 
       - name: Test the project
-        continue-on-error: true
         run: |
           dotnet test
