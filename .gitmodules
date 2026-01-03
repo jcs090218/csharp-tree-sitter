@@ -78,3 +78,26 @@
 	path = repos/dockerfile
 	url = https://github.com/camdencheek/tree-sitter-dockerfile
 	branch = main
+[submodule "repos/editorconfig"]
+	path = repos/editorconfig
+	url = https://github.com/ValdezFOmar/tree-sitter-editorconfig
+	branch = main
+[submodule "repos/elisp"]
+	path = repos/elisp
+	url = https://github.com/Wilfred/tree-sitter-elisp
+	branch = main
+[submodule "repos/elixir"]
+	path = repos/elixir
+	url = https://github.com/elixir-lang/tree-sitter-elixir
+	branch = main
+[submodule "repos/elm"]
+	path = repos/elm
+	url = https://github.com/elm-tooling/tree-sitter-elm
+	branch = main
+[submodule "repos/erlang"]
+	path = repos/erlang
+	url = https://github.com/WhatsApp/tree-sitter-erlang
+	branch = main
+[submodule "repos/fennel"]
+	path = repos/fennel
+	url = https://github.com/alexmozaidze/tree-sitter-fennel

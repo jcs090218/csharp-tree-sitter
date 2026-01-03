@@ -648,7 +648,7 @@ print('Flyby objects: $flybyObjects');
             string path = Util.FromProjectDir(
                 "fixtures", "dockerfile", "Dockerfile");
 
-            Util.ParseWithLangFile(TreeSitterBundle.Language.dart, path);
+            Util.ParseWithLangFile(TreeSitterBundle.Language.dockerfile, path);
 
             Assert.Pass();
         }
@@ -657,6 +657,52 @@ print('Flyby objects: $flybyObjects');
         public void parse_dockerfile_example_1_raw()
         {
             Util.ParseWithLangText(TreeSitterBundle.Language.dockerfile, @"
+# EditorConfig helps developers define and maintain consistent
+# coding styles between different editors and IDEs
+# editorconfig.org
+
+root = true
+
+
+[*]
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+indent_style = space
+indent_size = 2
+
+[*.txt]
+indent_style = tab
+indent_size = 4
+
+[*.{diff,md}]
+trim_trailing_whitespace = false
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region Editorconfig
+
+        [Test]
+        public void parse_editorconfig_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "editorconfig", ".editorconfig");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.editorconfig, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_editorconfig_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.editorconfig, @"
 # Stage 1: Build the application
 FROM node:18-alpine as builder
 
@@ -676,6 +722,177 @@ COPY --from=builder /app/dist /usr/share/nginx/html
 EXPOSE 80
 
 CMD [""nginx"", ""-g"", ""daemon off;""]
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region Emacs Lisp
+
+        [Test]
+        public void parse_elisp_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "elisp", "example_1.el");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.elisp, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_elisp_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.elisp, @"
+(defun my-wrap-markup-region ()
+  ""Insert a markup <b></b> around a region.""
+  (interactive)
+  (let ((p1 (region-beginning)) (p2 (region-end)))
+    (goto-char p2)
+    (insert ""</b>"")
+    (goto-char p1)
+    (insert ""<b>"")))
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region Elixir
+
+        [Test]
+        public void parse_elixir_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "elixir", "example_1.ex");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.elixir, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_elixir_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.elixir, @"
+defmodule Geometry do
+  # Clause 1: handles a rectangle tuple {width, height}
+  def area({:rectangle, w, h}) do
+    w * h
+  end
+
+  # Clause 2: handles a circle tuple {radius} only if the radius is a number
+  def area({:circle, r}) when is_number(r) do
+    3.14 * r * r
+  end
+end
+
+# Example usage:
+IO.puts(Geometry.area({:rectangle, 2, 3}))
+IO.puts(Geometry.area({:circle, 3}))
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region Elm
+
+        [Test]
+        public void parse_elm_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "elm", "example_1.elm");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.elm, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_elm_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.elm, @"
+module Main exposing (..)
+
+import Browser
+import Html exposing (Html, button, div, text)
+import Html.Events exposing (onClick)
+
+-- MAIN
+main =
+    Browser.sandbox { init = init, update = update, view = view }
+
+-- MODEL
+-- The Model is the state of your application.
+type alias Model = Int
+
+init : Model
+init =
+    0
+
+-- UPDATE
+-- Update is a way to update your state based on messages (actions).
+-- Define the possible messages using a custom type.
+type Msg
+    = Increment
+    | Decrement
+
+update : Msg -> Model -> Model
+update msg model =
+    case msg of
+        Increment ->
+            model + 1
+
+        Decrement ->
+            model - 1
+
+-- VIEW
+-- The view function turns your model into HTML.
+view : Model -> Html Msg
+view model =
+    div []
+        [ button [ onClick Decrement ] [ text ""-"" ]
+        , div [] [ text (toString model) ]
+        , button [ onClick Increment ] [ text ""+"" ]
+        ]
+
+");
+
+            Assert.Pass();
+        }
+
+        #endregion
+
+        #region Erlang
+
+        [Test]
+        public void parse_erlang_example_1()
+        {
+            string path = Util.FromProjectDir(
+                "fixtures", "erlang", "example_1.erl");
+
+            Util.ParseWithLangFile(TreeSitterBundle.Language.erlang, path);
+
+            Assert.Pass();
+        }
+
+        [Test]
+        public void parse_erlang_example_1_raw()
+        {
+            Util.ParseWithLangText(TreeSitterBundle.Language.erlang, @"
+-module(helloworld).
+-export([start/0]).
+
+start() ->
+    io:fwrite(""Hello, world!\\n"").
 
 ");
 
