@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using CommandLine;
 
@@ -50,19 +49,8 @@ namespace TreeSitter.CLI
 
             Console.Error.WriteLine($"Compiling {f_dlib}...");
 
-            using var process = new Process();
-
-            process.StartInfo.FileName = "tree-sitter";
-            process.StartInfo.Arguments = $"build -o {f_dlib}";
-            process.StartInfo.WorkingDirectory = dir;
-
-            process.StartInfo.UseShellExecute = true;
-            process.StartInfo.RedirectStandardOutput = false;
-            process.StartInfo.RedirectStandardError = false;
-            process.StartInfo.CreateNoWindow = false;
-
-            process.Start();
-            process.WaitForExit();
+            Util.WithTSCommand(dir, $"generate");
+            Util.WithTSCommand(dir, $"build -o {f_dlib}");
         }
 
         public static int Run(OptBuildBundle opts)

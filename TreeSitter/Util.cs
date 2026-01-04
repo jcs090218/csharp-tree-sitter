@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+﻿using System.Diagnostics;
 
 namespace TreeSitter
 {
@@ -78,6 +78,23 @@ namespace TreeSitter
                 return str.Substring(prefix.Length);
 
             return str;
+        }
+
+        public static void WithTSCommand(string dir, string args)
+        {
+            using var process = new Process();
+
+            process.StartInfo.FileName = "tree-sitter";
+            process.StartInfo.Arguments = args;
+            process.StartInfo.WorkingDirectory = dir;
+
+            process.StartInfo.UseShellExecute = true;
+            process.StartInfo.RedirectStandardOutput = false;
+            process.StartInfo.RedirectStandardError = false;
+            process.StartInfo.CreateNoWindow = false;
+
+            process.Start();
+            process.WaitForExit();
         }
     }
 }

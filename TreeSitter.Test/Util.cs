@@ -1,4 +1,5 @@
-﻿using TreeSitter.Bundle;
+﻿using System.Diagnostics;
+using TreeSitter.Bundle;
 
 namespace TreeSitter.Test
 {
