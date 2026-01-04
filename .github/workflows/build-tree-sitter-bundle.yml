@@ -49,10 +49,12 @@ jobs:
             ext: dylib
 
     steps:
+      - name: Enable long paths
+        run: git config --system core.longpaths true
+
       - uses: actions/checkout@v6
         with:
           submodules: recursive
-          fetch-depth: 0
 
       - name: Init submodules
         run: git submodule update --checkout
