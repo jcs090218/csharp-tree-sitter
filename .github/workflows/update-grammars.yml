@@ -67,8 +67,8 @@ jobs:
           #- heex
           - hlsl
           - html
-          - jai
-          - janet-simple
+          #- jai
+          #- janet-simple
           - java
           - javascript
           #- jsdoc
