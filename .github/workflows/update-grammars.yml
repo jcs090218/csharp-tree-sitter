@@ -18,7 +18,7 @@ jobs:
         target:
           - actionscript
           - ada
-          - agda
+          #- agda
           - arduino
           - asm
           #- astro
@@ -27,17 +27,17 @@ jobs:
           - bibtex
           - c
           - c-sharp
-          - cg
+          #- cg
           - clojure
           - cmake
-          - comment
+          #- comment
           - commonlisp
           - cpp
           - css
           - csv
           - d
           - dart
-          - diff
+          #- diff
           - dockerfile
           - editorconfig
           - elisp
@@ -46,85 +46,84 @@ jobs:
           - erlang
           - fennel
           - fish
-          - fluent
-          - fortran
+          #- fluent
+          #- fortran
           - fsharp
           - gdscript
-          - git-config
-          - git-rebase
-          - gitattributes
-          - gitcommit
-          - gitignore
-          - gleam
+          #- git-config
+          #- git-rebase
+          #- gitattributes
+          #- gitcommit
+          #- gitignore
+          #- gleam
           - glsl
           - go
-          - gpr
-          - graphql
+          #- gpr
+          #- graphql
           - groovy
           - haskell
           - haxe
-          - hcl
-          - heex
+          #- hcl
+          #- heex
           - hlsl
           - html
           - jai
           - janet-simple
           - java
           - javascript
-          - jsdoc
+          #- jsdoc
           - json
-          - jsonnet
+          #- jsonnet
           - julia
           - kotlin
-          - latex
-          - lexc
-          - llvm
-          - llvm-mir
+          #- latex
+          #- lexc
+          #- llvm
+          #- llvm-mir
           - lua
-          - magik
+          #- magik
           - make
           - markdown
-          - markdown-inline
-          - matlab
-          - mermaid
-          - meson
-          - nim
-          - ninja
+          #- matlab
+          #- mermaid
+          #- meson
+          #- nim
+          #- ninja
           - nix
-          - noir
-          - ocaml
-          - ocaml-interface
+          #- noir
+          #- ocaml
+          #- ocaml-interface
           - org
-          - pascal
-          - perl
-          - pgn
+          #- pascal
+          #- perl
+          #- pgn
           - php
-          - prisma
+          #- prisma
           - python
-          - r
+          #- r
           - racket
-          - ron
-          - rst
-          - rtx
+          #- ron
+          #- rst
+          #- rtx
           - ruby
           - rust
-          - scala
-          - scheme
-          - slint
-          - smithy
-          - solidity
-          - sql
-          - svelte
+          #- scala
+          #- scheme
+          #- slint
+          #- smithy
+          #- solidity
+          #- sql
+          #- svelte
           - swift
-          - tablegen
-          - tcl
+          #- tablegen
+          #- tcl
           - toml
-          - twig
+          #- twig
           - typescript
-          - typst
-          - verilog
-          - vhdl
-          - vim
+          #- typst
+          #- verilog
+          #- vhdl
+          #- vim
           - xml
           - yaml
           - zig
