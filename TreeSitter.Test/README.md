@@ -5,7 +5,7 @@ The unit test is written using the [Nunit][] framework.
 To run tests:
 
 ```console
-dontnet build
+dontnet test
 ```
 
 

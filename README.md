@@ -112,7 +112,7 @@ git submodule add -b master -- https://github.com/tree-sitter/tree-sitter-rust r
 Try building the parser:
 
 ```console
-csharp-tree-sitter build-bundle -i ./repos -o ./bin
+csharp-tree-sitter build-bundle -i ./repos -o ./bin --language rust
 ```
 
 Then add the tests to `TreeSitter.Test/UnitTest1.cs`:
