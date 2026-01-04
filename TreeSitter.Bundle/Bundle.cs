@@ -78,22 +78,37 @@ namespace TreeSitter.Bundle
         }
 
         /// <summary>
+        /// Convert the enum `Language` to symbol's name.
+        /// </summary>
+        public static string LangSymbol(Language lang)
+        {
+            switch (lang)
+            {
+                case Language.json: 
+                    return "tree_sitter_json_schema";
+            }
+
+            return $"tree_sitter_{lang}";
+        }
+
+        /// <summary>
         /// Prepare the language.
         /// </summary>
         public static TSLanguage Load(Language lang)
         {
             string name = LangName(lang);
+            string symbol = LangSymbol(lang);
 
-            return Load(name);
+            return Load(name, symbol);
         }
-        public static TSLanguage Load(string lang)
+        private static TSLanguage Load(string lang, string symbol)
         {
             bool success = EnsurePrebuilt(lang);
 
             if (!success)
                 throw new InvalidDataException($"Invalid bundle name: {lang}");
 
-            return NativeGrammar.Load(lang);
+            return NativeGrammar.Load(lang, symbol);
         }
 
         /// <summary>
