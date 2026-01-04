@@ -19,6 +19,6 @@ csharp-tree-sitter build-bundle -i ./repos -o ./bin
 ## TODO
 
 - [x] Add an command line parser ([commandline](https://github.com/commandlineparser/commandline))
-- [ ] Support more languages for testing.
+- [x] Support more languages for testing.
 - [ ] Add option to pass in languages to load.
 - [x] Add build command option.

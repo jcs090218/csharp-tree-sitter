@@ -1807,7 +1807,7 @@ end
         #endregion
 
 
-        #region Ruby
+        #region Rust
 
         [Test]
         public void parse_rust_example_1()

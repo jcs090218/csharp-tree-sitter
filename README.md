@@ -13,7 +13,7 @@ This module provides C# bindings to the [Tree-sitter][] parsing library,
 which can enable c# developers be able to invoke the tree-sitter libraries
 through P/Invoke from their C# code.
 
-You can install it by downloading the latest `.nupkg` files from our [release](https://github.com/jcs090218/csharp-tree-sitter/releases) page.
+You can install it by downloading the latest `.nupkg` files from our [release][_self.release] page.
 
 - `TreeSitter.<version>.nupkg` (C# Bindings)
 - `TreeSitter.Bundle.<version>.nupkg` (Language Bundle)
@@ -70,23 +70,32 @@ Requirements:
 
 - .NET 9
 
-We'll first need to build the dependencies, and then the C# project.
+We'll first need to build the native library, or download the prebuilt binary in our [release][_self.release] page.
+
+See [6. Contributing (Developing Tree-sitter)](https://tree-sitter.github.io/tree-sitter/6-contributing.html#developing-tree-sitter)
+for the build process of your choice.
+
+Then build the entire C# projects:
 
 ```console
-# Navigate to project's `tree-sitter` directory.
-cd <project>/tree-sitter
-
-# Build dependencies.
-nmake
+dotnet build
 ```
 
-Then build the C# project:
+### Packaging
+
+We use the standard [NuGet][] packaging process to create reusable packages.
+
+To build `.nupkg` files:
 
 ```console
-dotnet build csharp-tree-sitter.csproj
+dotnet pack
 ```
 
 ### Testing
+
+The unit test is written using the [Nunit][] framework.
+
+To run tests:
 
 ```console
 dotnet test
@@ -94,7 +103,34 @@ dotnet test
 
 ### Adding new grammars
 
-WIP.
+Register a new submodule. For example:
+
+```console
+git submodule add -b master -- https://github.com/tree-sitter/tree-sitter-rust repos/rust
+```
+
+Try building the parser:
+
+```console
+csharp-tree-sitter build-bundle -i ./repos -o ./bin
+```
+
+Then add the tests to `TreeSitter.Test/UnitTest1.cs`:
+
+```csharp
+[Test]
+public void parse_rust_example_1()
+{
+    string path = Util.FromProjectDir(
+        "fixtures", "rust", "example_1.rs");
+
+    Util.ParseWithLangFile(TreeSitterBundle.Language.rust, path);
+
+    Assert.Pass();
+}
+```
+
+Run tests with the command `dotnet test`.
 
 ## 🔗 Alternatives
 
@@ -105,8 +141,13 @@ WIP.
 
 <!-- Links -->
 
+[_self.release]: https://github.com/jcs090218/csharp-tree-sitter/releases
+
 [tree-sitter]: https://github.com/tree-sitter/tree-sitter
 
 [tree-sitter/csharp-tree-sitter]: https://github.com/tree-sitter/csharp-tree-sitter
 [dotnet-tree-sitter]: https://github.com/zabbius/dotnet-tree-sitter
 [tree-sitter-dotnet-bindings]: https://github.com/mariusgreuel/tree-sitter-dotnet-bindings
+
+[NuGet]: https://www.nuget.org/
+[Nunit]: https://github.com/nunit/nunit
