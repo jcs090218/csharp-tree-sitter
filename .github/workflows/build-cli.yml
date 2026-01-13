@@ -58,21 +58,23 @@ jobs:
 
       - name: Upload for release (Unix)
         if: github.ref == 'refs/heads/main' && runner.os != 'Windows'
-        uses: softprops/action-gh-release@v2.5.0
+        uses: ncipollo/release-action@v1.20.0
         with:
-          tag_name: ${{ env.VERSION }}
           token: ${{ secrets.PAT }}
+          tag: ${{ env.VERSION }}
+          allowUpdates: true
           prerelease: false
           draft: false
-          files: ./cli.${{ matrix.target }}.tar
+          artifacts: ./cli.${{ matrix.target }}.tar
 
       - name: Upload for release (Windows)
         if: github.ref == 'refs/heads/main' && runner.os == 'Windows'
-        uses: softprops/action-gh-release@v2.5.0
+        uses: ncipollo/release-action@v1.20.0
         with:
-          tag_name: ${{ env.VERSION }}
           token: ${{ secrets.PAT }}
+          tag: ${{ env.VERSION }}
+          allowUpdates: true
           prerelease: false
           draft: false
-          files: ./cli.${{ matrix.target }}.zip
+          artifacts: ./cli.${{ matrix.target }}.zip
   
