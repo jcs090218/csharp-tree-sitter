@@ -112,7 +112,7 @@ jobs:
           msbuild build/windows/tree-sitter.sln -t:rebuild -verbosity:diag -property:Configuration=${{ env.VS_OUT }} /p:Platform=x64
 
       - name: Upload binary (Unix)
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         if: runner.os != 'Windows'
         with:
           name: ${{ matrix.target }}.${{ matrix.bundle_os }}
@@ -120,7 +120,7 @@ jobs:
           if-no-files-found: error
 
       - name: Upload binary (Windows)
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         if: runner.os == 'Windows'
         with:
           name: ${{ matrix.target }}.${{ matrix.bundle_os }}
