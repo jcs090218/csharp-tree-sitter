@@ -37,7 +37,7 @@ jobs:
 
       - name: Upload for release
         if: github.ref == 'refs/heads/main'
-        uses: ncipollo/release-action@v1.20.0
+        uses: ncipollo/release-action@v1.21.0
         with:
           token: ${{ secrets.PAT }}
           tag: ${{ env.VERSION }}
